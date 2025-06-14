@@ -65,8 +65,8 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento l
 ## Passos para Instalação
 Clone o repositório:
 ```Bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/felipebrabelo/dsw1b1
+cd dsw1b1
 ```
 
 ## Configuração do Banco de Dados:
