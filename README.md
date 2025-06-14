@@ -1,60 +1,96 @@
-#  Sistema para oferta de vagas de estágios/empregos
-# Requisitos
+# Vai Trampar
+Atividade AA-1: Sistema para oferta de vagas de estágios/empregos
 
-O sistema deve possuir um cadastro de profissionais, com os seguintes dados: e-mail, senha, CPF,
-nome, telefone, sexo e data de nascimento.
+## Sistema de Vagas de Estágio e Emprego
+Este documento descreve o projeto de um sistema para oferta e candidatura de vagas de estágio e emprego, desenvolvido como parte da disciplina de Desenvolvimento de Software para a Web 1 da UFSCar.
 
-O sistema deve possuir um cadastro de empresas, com os seguintes dados: e-mail, senha, CNPJ,
-nome, descrição e cidade.
+## Sobre o Projeto
+O objetivo é criar uma plataforma web que conecte profissionais em busca de oportunidades com empresas que desejam contratar. O sistema permitirá que empresas publiquem vagas e gerenciem candidaturas, e que profissionais busquem vagas e se candidatem a elas. A plataforma contará com três perfis de usuário: Administrador, Empresa e Profissional.
 
-O sistema deve atender aos seguintes requisitos:
+## Funcionalidades Principais
+### Gerais
+- [ ] Internacionalização: O sistema deve suportar pelo menos dois idiomas (ex: Português e Inglês).
+- [ ] Validação de Dados: Todas as informações submetidas através de formulários devem ser validadas em termos de formato, tamanho, etc.
+- [ ] Tratamento de Erros: Erros como cadastros duplicados ou falhas técnicas devem ser tratados, exibindo uma página de erro amigável e registrando o erro no console do servidor.
+### Funcionalidades do Administrador
+- [ ] Gerenciamento de Profissionais (CRUD): O administrador pode criar, ler, atualizar e deletar os cadastros de profissionais.
+- [ ] Gerenciamento de Empresas (CRUD): O administrador pode criar, ler, atualizar e deletar os cadastros de empresas.
+- [ ] Acesso: O acesso do administrador requer um login e senha que devem ser populados no banco de dados na inicialização do sistema.
+### Funcionalidades da Empresa
+- [ ] Cadastro e Login: Empresas podem se cadastrar com e-mail, senha, CNPJ, nome, descrição e cidade.
+- [ ] Cadastro de Vagas: Após o login, a empresa pode cadastrar vagas de estágio/trabalho. O cadastro da vaga inclui CNPJ, descrição do perfil, habilidades, remuneração e data limite para inscrição.
 
-- R1: CRUD de profissionais (requer login de administrador)
-- R2: CRUD de empresas (requer login de administrador)
-- R3: Cadastro de vagas de estágio/trabalho (requer login da empresa via e-mail + senha).
-Depois de fazer login , a empresa pode cadastrar uma vaga de estágio/trabalho. O cadastro de
-vagas deve possuir os seguintes dados: CNPJ da empresa, descrição (perfil profissional,
-habilidades desejadas etc), remuneração e data limite de inscrição. O período de
-candidaturas (processo seletivo) para essa vaga encerra-se na data limite de inscrição.
-- R4: Listagem de todas as vagas (em aberto) em uma única página (não requer login ). O
-sistema deve prover a funcionalidade de filtrar as vagas (em aberto) por cidade
-- R5: Candidatura a vaga de estágio/trabalho (requer login do profissional via e-mail + senha).
-Ao clicar em uma vaga (requisito R4), o profissional pode se candidatar à vaga. Nesse caso, é
-necessário que ele apresente suas qualificações para a vaga -- pode ser através do upload de
-seu currículo em formato PDF. O sistema deve restrigir que cada candidato se candidate
-apenas uma vez à cada vaga.
-- R6: Listagem de todas as vagas de uma empresa (requer login da empresa via e-mail +
-senha). Depois de fazer login , a empresa pode visualizar todas suas vagas cadastradas.
-- R7: Listagem de todas as candidaturas de um profissional (requer login do profissional via e-
-mail + senha). Depois de fazer login , o profissional pode visualizar todas suas candidaturas
-cadastradas com seus respectivos status.
-ABERTO indica que a data limite de inscrição ainda não se encerrou ou ainda encontra-
-se em fase de análise pela empresa (requisito R8). NÃO SELECIONADO indica que a
-empresa considera que o perfil do profissional não se adequa à vaga. ENTREVISTA
-indica que o candidato foi (ou será) chamado para uma entrevista.
-- R8: Ao término do período de inscrição, inicia-se a fase de análise. A empresa (requer login da
-empresa via e-mail + senha), para cada candidato, deve analisar as suas qualificações
-(currículo) e atualizar o status da candidatura para NÃO SELECIONADO ou ENTREVISTA. Nos
-dois casos, o candidato deve ser informado (via e-mail) sobre a decisão. No caso do status
-ENTREVISTA , a empresa deve também informar um horário para uma entrevista (via
-videoconferência) com o candidato -- o link da videoconferência (google meet, zoom, etc)
-deve estar presente no corpo da mensagem enviada.
-- R9: O sistema deve ser internacionalizado em pelo menos dois idiomas: português + outro de
-sua escolha.
-- R10: O sistema deve validar (tamanho, formato, etc) todas as informações (campos nos
-formulários) cadastradas e/ou editadas.
+- [ ] Listagem de Vagas Próprias: Após o login, a empresa pode visualizar todas as suas vagas cadastradas.
+- [ ] Análise de Candidatos: Ao final do período de inscrição de uma vaga , a empresa pode analisar os currículos dos candidatos e atualizar o status da candidatura para "NÃO SELECIONADO" ou "ENTREVISTA".
 
-O sistema deve tratar todos os erros possíveis (cadastros duplicados, problemas técnicos, etc)
-mostrando uma página de erros amigável ao usuário e registrando o erro no console.
+- [ ] Comunicação com Candidatos: O sistema deve notificar os candidatos por e-mail sobre a mudança de status. Para o status "ENTREVISTA", a empresa deve informar o horário e o link da videoconferência na notificação.
 
-**Arquitetura**: Modelo-Visão-Controlador
-## Tecnologias
+### Funcionalidades do Profissional
+- [ ] Cadastro e Login: Profissionais podem se cadastrar com e-mail, senha, CPF, nome, telefone, sexo e data de nascimento.
+- [ ] Listagem de Vagas: Qualquer visitante (mesmo sem login) pode ver a lista de vagas abertas e filtrá-las por cidade.
+- [ ] Candidatura a Vagas: Após o login, o profissional pode se candidatar a uma vaga , enviando suas qualificações (por exemplo, via upload de currículo em PDF). Só é permitida uma candidatura por vaga para cada profissional.
 
-- Spring MVC, Spring Data JPA, Spring Security & Thymeleaf (Lado Servidor)
-- Javascript & CSS (Lado Cliente)
 
-## Ambiente de Desenvolvimento
+- [ ] Acompanhamento de Candidaturas: Após o login, o profissional pode ver a lista de todas as suas candidaturas e seus respectivos status: 
+ABERTO: A inscrição ainda está dentro do prazo ou em análise pela empresa.
+NÃO SELECIONADO: O perfil do profissional não foi considerado adequado para a vaga pela empresa.
+ENTREVISTA: O profissional foi pré-selecionado para uma entrevista.
 
-- A compilaçao e o deployment deve ser obrigatoriamente ser realizado via maven.
-- Os arquivos fonte do sistema devem estar hospedados obrigatoriamente em um repositório
-(preferencialmente github).
+## Arquitetura e Tecnologias
+### Arquitetura
+O projeto segue o padrão de arquitetura Modelo-Visão-Controlador (MVC).
+
+#### Tecnologias Utilizadas
+##### Back-end (Lado Servidor):
+- Spring MVC
+- Spring Data JPA
+- Spring Security
+- Thymeleaf
+##### Front-end (Lado Cliente):
+- Javascript
+- CSS
+
+## Ambiente de Desenvolvimento:
+- Build e Deploy: Obrigatoriamente com *Apache Maven*.
+- Controle de Versão: Obrigatoriamente com Git e hospedado em um [repositório *GitHub*](https://github.com/JoaoVitorAzevedo/iWork).
+
+# Como Executar o Projeto
+Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento local.
+
+## Pré-requisitos
+- Java Development Kit (JDK) 11 ou superior
+- Apache Maven
+- Git
+
+## Passos para Instalação
+Clone o repositório:
+```Bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+```
+
+## Configuração do Banco de Dados:
+Este projeto não envia o arquivo de configuração do banco de dados (application.properties) para o repositório por razões de segurança.
+
+Navegue até src/main/resources/.
+1. Crie uma cópia do arquivo application.properties.template e renomeie-a para application.properties.
+2. Edite o application.properties com as suas credenciais de acesso ao banco de dados local.
+3. Compile o projeto com o Maven:
+Execute o comando a seguir na raiz do projeto para baixar as dependências e compilar o código.
+
+```Bash
+mvn clean install
+```
+
+Execute a aplicação:
+Após a compilação bem-sucedida, inicie a aplicação com o seguinte comando:
+
+```Bash
+mvn spring-boot:run
+```
+A aplicação estará disponível em http://localhost:8080.
+
+## Equipe
+[João Vitor Azevedo](https://github.com/JoaoVitorAzevedo)
+Felipe
+Fábricio
