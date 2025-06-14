@@ -52,7 +52,7 @@ O projeto segue o padrão de arquitetura Modelo-Visão-Controlador (MVC).
 
 ## Ambiente de Desenvolvimento:
 - Build e Deploy: Obrigatoriamente com *Apache Maven*.
-- Controle de Versão: Obrigatoriamente com Git e hospedado em um [repositório *GitHub*](https://github.com/JoaoVitorAzevedo/iWork).
+- Controle de Versão: Obrigatoriamente com Git e hospedado em um [repositório *GitHub*](https://github.com/felipebrabelo/dsw1b1).
 
 # Como Executar o Projeto
 Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento local.
