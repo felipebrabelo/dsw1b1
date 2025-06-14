@@ -1,4 +1,4 @@
-# iWork
+# Vai Trampar
 Atividade AA-1: Sistema para oferta de vagas de estágios/empregos
 
 ## Sistema de Vagas de Estágio e Emprego
