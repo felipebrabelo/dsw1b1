@@ -52,7 +52,7 @@ O projeto segue o padrão de arquitetura Modelo-Visão-Controlador (MVC).
 
 ## Ambiente de Desenvolvimento:
 - Build e Deploy: Obrigatoriamente com *Apache Maven*.
-- Controle de Versão: Obrigatoriamente com Git e hospedado em um [repositório *GitHub*](https://github.com/JoaoVitorAzevedo/iWork).
+- Controle de Versão: Obrigatoriamente com Git e hospedado em um [repositório *GitHub*](https://github.com/felipebrabelo/dsw1b1).
 
 # Como Executar o Projeto
 Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento local.
@@ -65,8 +65,8 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento l
 ## Passos para Instalação
 Clone o repositório:
 ```Bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/felipebrabelo/dsw1b1
+cd dsw1b1
 ```
 
 ## Configuração do Banco de Dados:
