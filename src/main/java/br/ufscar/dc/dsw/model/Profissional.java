@@ -44,7 +44,7 @@ public class Profissional {
     private String cpf;
 
     @Column
-    private String telefone;
+    private String telefone; //sem formatação 
 
     @Column
     private String sexo;
