@@ -21,13 +21,12 @@ public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
 
     @NotBlank(message = "O nome é obrigatório.")
     @Size(max = 100)
     @Column(nullable = false, length = 100)
     private String nome;
-    
+
     @NotBlank(message = "O e-mail é obrigatório.")
     @Email(message = "Formato de e-mail inválido.")
     @Column(unique = true, nullable = false)
@@ -119,8 +118,10 @@ public class Empresa {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Empresa empresa = (Empresa) o;
         return Objects.equals(id, empresa.id) && Objects.equals(cnpj, empresa.cnpj);
     }
