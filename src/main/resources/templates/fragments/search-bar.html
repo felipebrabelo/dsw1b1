@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <form
+      th:action="@{/vagas}"
+      method="get"
+      class="search-bar home-search__bar form"
+      th:fragment="search-bar"
+    >
+      <input
+        type="text"
+        name="cargo"
+        class="search-bar__input home-search__input"
+        placeholder="Cargo ou palavra-chave"
+        th:value="${cargo}"
+      />
+      <input
+        type="text"
+        name="local"
+        class="search-bar__input home-search__select"
+        placeholder="Cidade, estado ou região"
+        th:value="${local}"
+      />
+      <input
+        class="seach-bar__submit button button--primary button--full-height"
+        type="submit"
+        value="Buscar"
+      />
+    </form>
+  </body>
+</html>

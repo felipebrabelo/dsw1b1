@@ -5,19 +5,8 @@
   <body>
     <section class="layout-content" layout:fragment="corpo">
       <div class="home-search">
-        <div class="homer-search__header">Lorem ipsum dolor sit amet!</div>
-        <div class="search-bar home-search__bar form">
-          <input type="text" class="search-bar__input home-search__input" />
-          <select name="cidade" class="search-bar__input home-search__select">
-            <option value="São Carlos">São Carlos</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="São Sebastião">São Sebastião</option>
-          </select>
-        </div>
-        <!-- <div class="homer-search__description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut metus
-          ut arcu mattis scelerisque non a nulla. Sed eu tempor arcu.
-        </div> -->
+        <div class="homer-search__header">Encontre o seu novo desafio!</div>
+        <div th:replace="~{fragments/search-bar::search-bar}"></div>
       </div>
     </section>
   </body>

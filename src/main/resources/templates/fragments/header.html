@@ -6,14 +6,30 @@
 
   <body>
     <header th:fragment="header" class="header">
-      <div class="header__wrapper">
+      <div class="header__wrapper page-width">
         <div class="header__logo">
-          <h2>VaiTrampar</h2>
+          <a th:href="@{/}">
+            <h2>VaiTrampar</h2>
+          </a>
         </div>
         <div class="header__buttons">
           <a class="button button--primary">Fazer login</a>
           <a class="button button--secondary">Criar uma nova conta</a>
         </div>
+        <details class="header-user">
+          <summary class="header-user__summary">
+            <div class="header-user__name">
+              <span>João da Silva</span>
+            </div>
+            <div class="header-user__avatar">
+              <img src="https://placehold.co/300x300" alt="Avatar" />
+            </div>
+          </summary>
+          <div class="header-user__dropdown">
+            <a th:href="@{/usuario/1}" class="header-user__link link">Perfil</a>
+            <a href="#" class="header-user__link link">Sair</a>
+          </div>
+        </details>
       </div>
     </header>
   </body>
