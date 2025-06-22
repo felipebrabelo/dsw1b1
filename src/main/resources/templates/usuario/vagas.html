@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head>
+    <title>Vagas</title>
+  </head>
+
+  <body>
+    <section class="layout-content page-width" layout:fragment="corpo">
+      <div class="container">
+        <div class="vagas">
+          <div class="vaga">
+            <div class="vaga__header">
+              <h2 class="vaga__title">
+                Low-Code Software Developer (n8n AI agents) Remote Contractor
+              </h2>
+            </div>
+            <div class="vaga__info">
+              <span class="vaga__location">São Paulo, SP</span>
+              <span class="vaga__salary">R$ 8.000,00</span>
+              <span class="">Publicada em 19/06/2025</span>
+              <span class="">Até 31/06/2025</span>
+            </div>
+            <div class="vaga__description">
+              <p>
+                We are looking for a Low-Code Software Developer to join our
+                team. The ideal candidate will have experience with n8n, AI
+                agents, and low-code development platforms.
+              </p>
+            </div>
+            <div class="vaga__footer">
+              <div class="vaga__company">
+                <img
+                  src="https://placehold.co/300x300"
+                  alt=""
+                  class="vaga__company-logo"
+                />
+                <span class="vaga__company-name">Accodal</span>
+              </div>
+            </div>
+            <a class="vaga__link" th:href="@{/vagas/1}"></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -5,31 +5,39 @@
   </head>
 
   <body>
-    <form
-      th:action="@{/vagas}"
-      method="get"
-      class="search-bar home-search__bar form"
-      th:fragment="search-bar"
-    >
-      <input
-        type="text"
-        name="cargo"
-        class="search-bar__input home-search__input"
-        placeholder="Cargo ou palavra-chave"
-        th:value="${cargo}"
-      />
-      <input
-        type="text"
-        name="local"
-        class="search-bar__input home-search__select"
-        placeholder="Cidade, estado ou região"
-        th:value="${local}"
-      />
-      <input
-        class="seach-bar__submit button button--primary button--full-height"
-        type="submit"
-        value="Buscar"
-      />
-    </form>
+    <search-bar th:fragment="search-bar" class="search-bar">
+      <form
+        th:action="@{/vagas}"
+        method="get"
+        class="form home-search__bar"
+      >
+        <input
+          type="text"
+          name="cargo"
+          class="search-bar__input home-search__input"
+          placeholder="Cargo ou palavra-chave"
+          th:value="${cargo}"
+        />
+        <div class="search-bar__cidade home-search__select">
+          <input
+            type="text"
+            name="local"
+            class="search-bar__cidade-input search-bar__input js-cidade-input"
+            placeholder="Cidade, estado ou região"
+            th:value="${local}"
+          />
+          <div class="search-bar__autocomplete js-cidade-autocomplete" style="display: none;">
+            <div class="autocomplete__item">São Carlos, SP</div>
+            <div class="autocomplete__item">São Paulo, SP</div>
+            <div class="autocomplete__item">São Sebastião, SP</div>
+          </div>
+        </div>
+        <input
+          class="seach-bar__submit button button--primary button--full-height"
+          type="submit"
+          value="Buscar"
+        />
+      </form>
+    </search-bar>
   </body>
 </html>

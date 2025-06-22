@@ -20,4 +20,10 @@ public class UsuarioController {
   public String detailUsuario(@PathVariable("id") Long id, ModelMap model) {
     return "usuario/details";
   }
+
+  @GetMapping("/{id}/vagas")
+  public String listVagasUsuario(@PathVariable("id") Long id, ModelMap model) {
+    model.addAttribute("id", id);
+    return "usuario/vagas";
+  }
 }

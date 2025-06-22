@@ -3,14 +3,67 @@
   <head> </head>
 
   <body>
-    <section class="layout-content page-width" layout:fragment="corpo">
-      <div class="vaga-details">
-        <div class="vaga-details__header">
-          <h2 class="vaga__title">
+    <div
+      class="layout-content page-width section-vaga container"
+      layout:fragment="corpo"
+    >
+      <div class="vaga">
+        <div class="vaga__header">
+          <h1 class="vaga__title">
             Low-Code Software Developer (n8n AI agents) Remote Contractor
-          </h2>
+          </h1>
+          <button class="button button--primary">
+            Candidatar-se
+          </button>
+        </div>
+        <div class="vaga__dates">
+          <p class="vaga__date-posted text--subdued">
+            Publicada em 19 de junho de 2025
+          </p>
+          <p class="vaga__date-expiry text--subdued">
+            Inscrições abertas até 17 de agosto de 2025
+          </p>
+        </div>
+        <hr />
+        <div class="vaga__location vaga__info">
+          <div class="text-with-icon">
+            <div th:replace="~{fragments/icons::icon-location}"></div>
+            <p class="">São Paulo, SP</p>
+          </div>
+          <div class="vaga__salary text-with-icon">
+            <div th:replace="~{fragments/icons::icon-money}"></div>
+            <p class="">R$ 8.000,00</p>
+          </div>
+          <div class="company">
+            <img
+              class="company__logo"
+              src="https://placehold.co/300x300"
+              alt="Accodal"
+            />
+            <span class="company__name">Accodal</span>
+          </div>
+        </div>
+        <hr />
+        <div class="vaga__description">
+          <h3>Descrição</h3>
+          <div class="vaga__description-content">
+            <p>
+              We are looking for a Low-Code Software Developer to join our team.
+              The ideal candidate will have experience with n8n, AI agents, and
+              low-code development platforms.
+            </p>
+            <p>
+              Responsibilities include developing and maintaining low-code
+              applications, integrating AI agents, and collaborating with the
+              team to deliver high-quality software solutions.
+            </p>
+            <p>
+              If you are passionate about low-code development and AI, we would
+              love to hear from you!
+            </p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   </body>
 </html>
