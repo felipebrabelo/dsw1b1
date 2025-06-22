@@ -40,7 +40,7 @@ public class Empresa {
     private String senha;
 
     @NotBlank(message = "O CNPJ é obrigatório.")
-    @CNPJ(message = "CNPJ inválido.")
+    // @CNPJ(message = "CNPJ inválido.")           -> removi pra popular o banco de dados inicialmente
     @Column(unique = true, nullable = false, length = 18) // Formato com máscara: XX.XXX.XXX/XXXX-XX
     private String cnpj;
 

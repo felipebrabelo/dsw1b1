@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
   </head>
-
   <body>
     <form
       th:action="@{/vagas}"
@@ -20,10 +19,10 @@
       />
       <input
         type="text"
-        name="local"
+        name="cidade"
         class="search-bar__input home-search__select"
-        placeholder="Cidade, estado ou região"
-        th:value="${local}"
+        placeholder="Cidade"
+        th:value="${cidade}"
       />
       <input
         class="seach-bar__submit button button--primary button--full-height"

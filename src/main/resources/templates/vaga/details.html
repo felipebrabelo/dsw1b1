@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
-  <head> </head>
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${vaga.descricao}"></title>
+</head>
 
-  <body>
-    <section class="layout-content page-width" layout:fragment="corpo">
-      <div class="vaga-details">
+<body>
+<section class="layout-content page-width" layout:fragment="corpo" th:object="${vaga}">
+    <div class="vaga-details">
         <div class="vaga-details__header">
-          <h2 class="vaga__title">
-            Low-Code Software Developer (n8n AI agents) Remote Contractor
-          </h2>
+            <h2 class="vaga__title" th:text="*{descricao}"></h2>
+            <h3 class="vaga__company" th:text="*{empresa.nome}"></h3>
+            <p class="vaga__location" th:text="*{empresa.cidade}"></p>
         </div>
-      </div>
-    </section>
-  </body>
+
+        <div class="vaga-details__body">
+            <h4>Descrição da Vaga</h4>
+            <p th:text="*{descricao}"></p>
+
+            <h4>Remuneração</h4>
+            <p>R$ <span th:text="${#numbers.formatDecimal(vaga.remuneração, 1, 'POINT', 2, 'COMMA')}"></span></p>
+
+            <h4>Data Limite para Inscrição</h4>
+            <p th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"></p>
+        </div>
+
+        <div class="vaga-details__footer">
+            <a href="#" class="button button--primary">Candidatar-se a esta vaga</a>
+        </div>
+    </div>
+</section>
+</body>
 </html>

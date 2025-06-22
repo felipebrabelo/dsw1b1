@@ -1,79 +1,36 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
-  <head>
-    <title>Vagas</title>
-  </head>
+<head>
+    <title>Resultados da Busca de Vagas</title>
+</head>
+<body>
+<section class="layout-content page-width" layout:fragment="corpo">
+    <div class="page-title">
+        <h2>Vagas Encontradas</h2>
+    </div>
 
-  <body>
-    <section class="layout-content page-width" layout:fragment="corpo">
-      <div class="container container--centered">
+    <div class="search-section">
         <div th:replace="~{fragments/search-bar::search-bar}"></div>
-      </div>
-      <div class="vagas">
-        <div class="vaga">
-          <div class="vaga__header">
-            <h2 class="vaga__title">
-              Low-Code Software Developer (n8n AI agents) Remote Contractor
-            </h2>
-          </div>
-          <div class="vaga__info">
-            <span class="vaga__location">São Paulo, SP</span>
-            <span class="vaga__salary">R$ 8.000,00</span>
-            <span class="">Publicada em 19/06/2025</span>
-            <span class="">Até 31/06/2025</span>
-          </div>
-          <div class="vaga__description">
-            <p>
-              We are looking for a Low-Code Software Developer to join our team.
-              The ideal candidate will have experience with n8n, AI agents, and
-              low-code development platforms.
-            </p>
-          </div>
-          <div class="vaga__footer">
-            <div class="vaga__company">
-              <img
-                src="https://placehold.co/300x300"
-                alt=""
-                class="vaga__company-logo"
-              />
-              <span class="vaga__company-name">Accodal</span>
-            </div>
-          </div>
-          <a class="vaga__link" th:href="@{/vagas/1}"></a>
+    </div>
+    
+    <div class="vagas-list">
+        <div th:if="${#lists.isEmpty(vagas)}" class="no-results">
+            <p>Nenhuma vaga encontrada com os critérios informados.</p>
         </div>
-        
-        <div class="vaga">
-          <div class="vaga__header">
-            <h2 class="vaga__title">
-              Low-Code Software Developer (n8n AI agents) Remote Contractor
-            </h2>
-          </div>
-          <div class="vaga__info">
-            <span class="vaga__location">São Paulo, SP</span>
-            <span class="vaga__salary">R$ 8.000,00</span>
-            <span class="">Publicada em 19/06/2025</span>
-            <span class="">Até 31/06/2025</span>
-          </div>
-          <div class="vaga__description">
-            <p>
-              We are looking for a Low-Code Software Developer to join our team.
-              The ideal candidate will have experience with n8n, AI agents, and
-              low-code development platforms.
-            </p>
-          </div>
-          <div class="vaga__footer">
-            <div class="vaga__company">
-              <img
-                src="https://placehold.co/300x300"
-                alt=""
-                class="vaga__company-logo"
-              />
-              <span class="vaga__company-name">Accodal</span>
+
+        <div th:unless="${#lists.isEmpty(vagas)}" th:each="vaga : ${vagas}" class="vaga-card">
+            <h3 class="vaga-card__title" th:text="${vaga.descricao}"></h3>
+            <div class="vaga-card__company" th:text="${vaga.empresa.nome}"></div>
+            <div class="vaga-card__location" th:text="${vaga.empresa.cidade}"></div>
+            <div class="vaga-card__salary">
+                Salário: R$ <span th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"></span>
             </div>
-          </div>
-          <a class="vaga__link" th:href="@{/vagas/1}"></a>
+            <div class="vaga-card__deadline">
+                Inscrições até: <span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"></span>
+            </div>
+            <a th:href="@{/vagas/{id}(id=${vaga.id})}" class="button button--secondary">Ver detalhes</a>
         </div>
-      </div>
-    </section>
-  </body>
+    </div>
+</section>
+</body>
 </html>
