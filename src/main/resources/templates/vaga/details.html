@@ -1,33 +1,56 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <title th:text="${vaga.descricao}"></title>
 </head>
 
 <body>
-<section class="layout-content page-width" layout:fragment="corpo" th:object="${vaga}">
-    <div class="vaga-details">
-        <div class="vaga-details__header">
-            <h2 class="vaga__title" th:text="*{descricao}"></h2>
-            <h3 class="vaga__company" th:text="*{empresa.nome}"></h3>
-            <p class="vaga__location" th:text="*{empresa.cidade}"></p>
+<section class="layout-content" layout:fragment="corpo">
+
+    <div class="container mt-4 mb-4">
+
+        <div th:if="${vagaExpirada}" class="alert alert-danger text-center" role="alert">
+            <strong>Atenção:</strong> O período de inscrição para esta vaga já encerrou.
         </div>
 
-        <div class="vaga-details__body">
-            <h4>Descrição da Vaga</h4>
-            <p th:text="*{descricao}"></p>
+        <div class="card" th:object="${vaga}">
+            <div class="card-header bg-light">
+                <h2 class="card-title" th:text="*{descricao}">Desenvolvedor Java Pleno</h2>
+                <h4 class="card-subtitle mb-2 text-muted" th:text="*{empresa.nome}">Nome da Empresa</h4>
+                <p class="card-text"><i class="fas fa-map-marker-alt"></i> <span th:text="*{empresa.cidade}">São Carlos</span></p>
+            </div>
 
-            <h4>Remuneração</h4>
-            <p>R$ <span th:text="${#numbers.formatDecimal(vaga.remuneração, 1, 'POINT', 2, 'COMMA')}"></span></p>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="card-title">Descrição da Empresa</h5>
+                        <p class="card-text" th:text="*{empresa.descricao}">Descrição detalhada sobre a cultura e os projetos da empresa.</p>
+                    </div>
 
-            <h4>Data Limite para Inscrição</h4>
-            <p th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"></p>
-        </div>
+                    <div class="col-md-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h6>Remuneração</h6>
+                                <span th:text="${#numbers.formatCurrency(vaga.remuneracao)}">R$ 5.000,00</span>
+                            </li>
+                            <li class="list-group-item">
+                                <h6>Data Limite para Inscrição</h6>
+                                <span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}">31/12/2025</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-        <div class="vaga-details__footer">
-            <a href="#" class="button button--primary">Candidatar-se a esta vaga</a>
+            <div class="card-footer text-center">
+                <a th:href="@{/candidaturas/inscrever/{id}(id=*{id})}" class="btn btn-primary btn-lg"
+                   th:disabled="${vagaExpirada}">Candidatar-se</a>
+
+                <a th:href="@{/vagas}" class="btn btn-secondary btn-lg">Voltar</a>
+            </div>
         </div>
     </div>
+
 </section>
 </body>
 </html>

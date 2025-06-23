@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class DatabaseSeeder implements ApplicationRunner {
@@ -69,7 +68,7 @@ public class DatabaseSeeder implements ApplicationRunner {
         vaga2.setRemuneracao(new BigDecimal("7000.00"));
         vaga2.setDataLimiteInscricao(LocalDate.now().plusDays(20));
         vaga2.setEmpresa(empresa2); // Associa a vaga ao iFood
-
+        
         Vaga vaga3 = new Vaga();
         vaga3.setDescricao("Analista de Dados com foco em Python");
         vaga3.setRemuneracao(new BigDecimal("8000.00"));
