@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
+
 <head>
     <title>Resultados da Busca de Vagas</title>
 </head>
+
 <body>
-<section class="layout-content page-width" layout:fragment="corpo">
-    <div class="page-title">
-        <h2>Vagas Encontradas</h2>
-    </div>
-
-    <div class="search-section">
-        <div th:replace="~{fragments/search-bar::search-bar}"></div>
-    </div>
-    
-    <div class="vagas-list">
-        <div th:if="${#lists.isEmpty(vagas)}" class="no-results">
-            <p>Nenhuma vaga encontrada com os critérios informados.</p>
+    <section class="layout-content page-width" layout:fragment="corpo">
+        <div class="page-title">
+            <h2>Vagas Encontradas</h2>
         </div>
 
-        <div th:unless="${#lists.isEmpty(vagas)}" th:each="vaga : ${vagas}" class="vaga-card">
-            <h3 class="vaga-card__title" th:text="${vaga.descricao}"></h3>
-            <div class="vaga-card__company" th:text="${vaga.empresa.nome}"></div>
-            <div class="vaga-card__location" th:text="${vaga.empresa.cidade}"></div>
-            <div class="vaga-card__salary">
-                Salário: R$ <span th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"></span>
-            </div>
-            <div class="vaga-card__deadline">
-                Inscrições até: <span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"></span>
-            </div>
-            <a th:href="@{/vagas/{id}(id=${vaga.id})}" class="button button--secondary">Ver detalhes</a>
+        <div class="container container--centered">
+            <div th:replace="~{fragments/search-bar::search-bar}"></div>
         </div>
-    </div>
-</section>
+
+        <div class="vagas">
+            <div th:if="${#lists.isEmpty(vagas)}" class="no-results">
+                <p>Nenhuma vaga encontrada com os critérios informados.</p>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(vagas)}" th:each="vaga : ${vagas}" class="vaga">
+                <div class="vaga__header">
+                    <h2 class="vaga__title" th:text="${vaga.descricao}"></h2>
+                </div>
+                <div class="vaga__info">
+                    <div class="vaga-card__location" th:text="${vaga.empresa.cidade}"></div>
+                    <div class="vaga-card__salary">
+                        Salário: R$ <span
+                            th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"></span>
+                    </div>
+                    <div class="vaga-card__deadline">
+                        Inscrições até: <span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"></span>
+                    </div>
+                </div>
+                <div class="vaga__footer">
+                    <div class="vaga__company">
+                        <span class="vaga__company-name" th:text="${vaga.empresa.nome}"></span>
+                    </div>
+                </div>
+                <a th:href="@{/vagas/{id}(id=${vaga.id})}" class="vaga__link"></a>
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>
