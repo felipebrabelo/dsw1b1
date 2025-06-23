@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.model;
+package br.ufscar.dc.dsw.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -7,33 +7,22 @@ import jakarta.validation.constraints.Past;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * Representa a entidade Profissional, conforme o Requisito 1.
  * Armazena os dados de um usuário candidato a vagas.
  */
 @Entity
-@Table(name = "profissionais")
+@Table(name = "Profissional")
 public class Profissional extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "O nome é obrigatório.")
-    @Column(nullable = false)
-    private String nome;
-
-  
-    
     @NotBlank(message = "O CPF é obrigatório.")
     @CPF(message = "CPF inválido.")
     @Column(unique = true, nullable = false, length = 14) // Formato com máscara: XXX.XXX.XXX-XX
     private String cpf;
 
     @Column
-    private String telefone; //sem formatação 
+    private String telefone; // sem formatação
 
     @Column
     private String sexo;
@@ -49,25 +38,6 @@ public class Profissional extends Usuario {
     }
 
     // Getters e Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
- 
-
-   
     public String getCpf() {
         return cpf;
     }
@@ -98,21 +68,5 @@ public class Profissional extends Usuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    // hashCode e equals para correta comparação de objetos
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Profissional that = (Profissional) o;
-        return Objects.equals(id, that.id) && Objects.equals(cpf, that.cpf);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, cpf);
     }
 }

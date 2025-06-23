@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.model;
+package br.ufscar.dc.dsw.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
@@ -16,12 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "vagas")
-public class Vaga {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Vaga extends AbstractEntity<Long> {
     @NotBlank(message = "A descrição é obrigatória.")
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descricao; // Descrição da vaga, pode ser longa
@@ -40,19 +35,10 @@ public class Vaga {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
-    private Empresa empresa; // Vinculado a partir do "CNPJ da empresa" 
+    private Empresa empresa; // Vinculado a partir do "CNPJ da empresa"
 
     // Construtor padrão
     public Vaga() {
-    }
-
-    // Getters e Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescricao() {
@@ -85,19 +71,5 @@ public class Vaga {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
-    }
-    
-    // hashCode e equals
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vaga vaga = (Vaga) o;
-        return Objects.equals(id, vaga.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

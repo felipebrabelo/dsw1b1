@@ -1,7 +1,8 @@
 package br.ufscar.dc.dsw.controller;
 
-import br.ufscar.dc.dsw.model.Vaga;
-import br.ufscar.dc.dsw.repository.VagaRepository;
+import br.ufscar.dc.dsw.dao.IVagaDAO;
+import br.ufscar.dc.dsw.domain.Vaga;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,7 +19,7 @@ import java.util.List;
 public class VagaController {
 
   @Autowired
-  private VagaRepository vagaRepository;
+  private IVagaDAO vagaRepository;
 
   // Lista as vagas com base nos filtros de cargo e/ou cidade.
   // Todas as buscas consideram apenas vagas com data de inscrição válida.

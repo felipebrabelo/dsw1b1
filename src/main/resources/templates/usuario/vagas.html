@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
   <head>
-    <title>Vagas</title>
+    <title>Resultados da Busca de Vagas</title>
   </head>
 
   <body>
-    <section class="layout-content page-width" layout:fragment="corpo">
-      <div class="container">
-        <div class="vagas">
-          <div class="vaga">
-            <div class="vaga__header">
-              <h2 class="vaga__title">
-                Low-Code Software Developer (n8n AI agents) Remote Contractor
-              </h2>
-            </div>
-            <div class="vaga__info">
-              <span class="vaga__location">São Paulo, SP</span>
-              <span class="vaga__salary">R$ 8.000,00</span>
-              <span class="">Publicada em 19/06/2025</span>
-              <span class="">Até 31/06/2025</span>
-            </div>
-            <div class="vaga__description">
-              <p>
-                We are looking for a Low-Code Software Developer to join our
-                team. The ideal candidate will have experience with n8n, AI
-                agents, and low-code development platforms.
-              </p>
-            </div>
-            <div class="vaga__footer">
-              <div class="vaga__company">
-                <img
-                  src="https://placehold.co/300x300"
-                  alt=""
-                  class="vaga__company-logo"
-                />
-                <span class="vaga__company-name">Accodal</span>
-              </div>
-            </div>
-            <a class="vaga__link" th:href="@{/vagas/1}"></a>
+    <section class="layout-content page-width container" layout:fragment="corpo">
+      <div class="vagas">
+        <div th:if="${#lists.isEmpty(vagas)}" class="no-results">
+          <p>Nenhuma vaga encontrada.</p>
+        </div>
+
+        <div
+          th:unless="${#lists.isEmpty(vagas)}"
+          th:each="vaga : ${vagas}"
+          class="vaga"
+        >
+          <div class="vaga__header">
+            <h2 class="vaga__title" th:text="${vaga.descricao}"></h2>
           </div>
+          <div class="vaga__info">
+            <div
+              class="vaga-card__location"
+              th:text="${vaga.empresa.cidade}"
+            ></div>
+            <div class="vaga-card__salary">
+              Salário: R$
+              <span
+                th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"
+              ></span>
+            </div>
+            <div class="vaga-card__deadline">
+              Inscrições até:
+              <span
+                th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
+              ></span>
+            </div>
+          </div>
+          <div class="vaga__footer">
+            <div class="vaga__company">
+              <span
+                class="vaga__company-name"
+                th:text="${vaga.empresa.nome}"
+              ></span>
+            </div>
+          </div>
+          <a th:href="@{/vagas/{id}(id=${vaga.id})}" class="vaga__link"></a>
         </div>
       </div>
     </section>
