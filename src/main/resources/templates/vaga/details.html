@@ -1,56 +1,69 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
-<head>
-    <title th:text="${vaga.descricao}"></title>
-</head>
+<html layout:decorate="~{layout}">
+  <head> </head>
 
-<body>
-<section class="layout-content" layout:fragment="corpo">
-
-    <div class="container mt-4 mb-4">
-
-        <div th:if="${vagaExpirada}" class="alert alert-danger text-center" role="alert">
-            <strong>Atenção:</strong> O período de inscrição para esta vaga já encerrou.
+  <body>
+    <div
+      class="layout-content page-width section-vaga container"
+      layout:fragment="corpo"
+    >
+      <div class="vaga">
+        <div class="vaga__header">
+          <h1 class="vaga__title">
+            Low-Code Software Developer (n8n AI agents) Remote Contractor
+          </h1>
+          <button class="button button--primary">
+            Candidatar-se
+          </button>
         </div>
-
-        <div class="card" th:object="${vaga}">
-            <div class="card-header bg-light">
-                <h2 class="card-title" th:text="*{descricao}">Desenvolvedor Java Pleno</h2>
-                <h4 class="card-subtitle mb-2 text-muted" th:text="*{empresa.nome}">Nome da Empresa</h4>
-                <p class="card-text"><i class="fas fa-map-marker-alt"></i> <span th:text="*{empresa.cidade}">São Carlos</span></p>
-            </div>
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h5 class="card-title">Descrição da Empresa</h5>
-                        <p class="card-text" th:text="*{empresa.descricao}">Descrição detalhada sobre a cultura e os projetos da empresa.</p>
-                    </div>
-
-                    <div class="col-md-4">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <h6>Remuneração</h6>
-                                <span th:text="${#numbers.formatCurrency(vaga.remuneracao)}">R$ 5.000,00</span>
-                            </li>
-                            <li class="list-group-item">
-                                <h6>Data Limite para Inscrição</h6>
-                                <span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}">31/12/2025</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-footer text-center">
-                <a th:href="@{/candidaturas/inscrever/{id}(id=*{id})}" class="btn btn-primary btn-lg"
-                   th:disabled="${vagaExpirada}">Candidatar-se</a>
-
-                <a th:href="@{/vagas}" class="btn btn-secondary btn-lg">Voltar</a>
-            </div>
+        <div class="vaga__dates">
+          <p class="vaga__date-posted text--subdued">
+            Publicada em 19 de junho de 2025
+          </p>
+          <p class="vaga__date-expiry text--subdued">
+            Inscrições abertas até 17 de agosto de 2025
+          </p>
         </div>
+        <hr />
+        <div class="vaga__location vaga__info">
+          <div class="text-with-icon">
+            <div th:replace="~{fragments/icons::icon-location}"></div>
+            <p class="">São Paulo, SP</p>
+          </div>
+          <div class="vaga__salary text-with-icon">
+            <div th:replace="~{fragments/icons::icon-money}"></div>
+            <p class="">R$ 8.000,00</p>
+          </div>
+          <div class="company">
+            <img
+              class="company__logo"
+              src="https://placehold.co/300x300"
+              alt="Accodal"
+            />
+            <span class="company__name">Accodal</span>
+          </div>
+        </div>
+        <hr />
+        <div class="vaga__description">
+          <h3>Descrição</h3>
+          <div class="vaga__description-content">
+            <p>
+              We are looking for a Low-Code Software Developer to join our team.
+              The ideal candidate will have experience with n8n, AI agents, and
+              low-code development platforms.
+            </p>
+            <p>
+              Responsibilities include developing and maintaining low-code
+              applications, integrating AI agents, and collaborating with the
+              team to deliver high-quality software solutions.
+            </p>
+            <p>
+              If you are passionate about low-code development and AI, we would
+              love to hear from you!
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-
-</section>
-</body>
+  </body>
 </html>
