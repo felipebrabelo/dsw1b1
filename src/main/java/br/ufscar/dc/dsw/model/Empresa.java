@@ -1,10 +1,9 @@
 package br.ufscar.dc.dsw.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.br.CNPJ;
+// import org.hibernate.validator.constraints.br.CNPJ;
 
 import java.util.Objects;
 
@@ -16,7 +15,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "empresas")
-public class Empresa {
+public class Empresa extends Usuario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +26,12 @@ public class Empresa {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @NotBlank(message = "O e-mail é obrigatório.")
-    @Email(message = "Formato de e-mail inválido.")
-    @Column(unique = true, nullable = false)
-    private String email;
+   
 
-    @NotBlank(message = "A senha é obrigatória.")
-    @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres.")
-    // Em um projeto real, a senha NUNCA deve ser armazenada como texto puro.
-    // Usaremos Spring Security para codificá-la antes de salvar.
-    @Column(nullable = false)
-    private String senha;
+    
 
     @NotBlank(message = "O CNPJ é obrigatório.")
-    @CNPJ(message = "CNPJ inválido.")
+    // @CNPJ(message = "CNPJ inválido.")           -> removi pra popular o banco de dados inicialmente
     @Column(unique = true, nullable = false, length = 18) // Formato com máscara: XX.XXX.XXX/XXXX-XX
     private String cnpj;
 
@@ -54,6 +45,7 @@ public class Empresa {
     // Construtores
 
     public Empresa() {
+        super.setRole("ROLE_EMPRESA");
     }
 
     // Getters e Setters
@@ -74,22 +66,7 @@ public class Empresa {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
+      
     public String getCnpj() {
         return cnpj;
     }
