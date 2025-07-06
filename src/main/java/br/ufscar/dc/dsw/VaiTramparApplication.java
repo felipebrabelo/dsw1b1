@@ -18,6 +18,7 @@ import br.ufscar.dc.dsw.dao.IVagaDAO;
 import br.ufscar.dc.dsw.domain.Candidatura;
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Profissional;
+import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Vaga;
 
 @SpringBootApplication
@@ -36,9 +37,18 @@ public class VaiTramparApplication {
 			IProfissionalDAO profissionalDAO,
 			ICandidaturaDAO candidaturaDAO) {
 		return (args) -> {
+			// --- Criando e Salvando Admin ---
+			Usuario admin = new Usuario();
+			admin.setEmail("admin@admin.com");
+			admin.setSenha(encoder.encode("admin")); // codificar a senha eventualmente
+			admin.setNome("Administrador");
+			admin.setRole("ROLE_ADMIN");
+
+			usuarioDAO.save(admin);
+
 			// --- Criando e Salvando Empresas ---
 			Empresa empresa1 = new Empresa();
-			empresa1.setEmail("admin@admin.com");
+			empresa1.setEmail("google@google.com");
 			empresa1.setSenha(encoder.encode("admin")); // codificar a senha eventaulmente
 			empresa1.setCnpj("06.990.590/0001-23");
 			empresa1.setNome("Google Brasil");
@@ -88,10 +98,11 @@ public class VaiTramparApplication {
 			Profissional profissional1 = new Profissional();
 			profissional1.setNome("João Silva");
 			profissional1.setEmail("joao@gmail.com");
-			profissional1.setSenha(encoder.encode("123"));
+			profissional1.setSenha(encoder.encode("joao"));
 			profissional1.setCpf("167.881.330-34");
 			profissional1.setTelefone("11987654321");
-			profissional1.setSexo("Masculino");
+			profissional1.setSexo("MASCULINO");
+			profissional1.setEnabled(true);
 			profissional1.setDataNascimento(LocalDate.of(1995, 5, 20));
 
 			profissionalDAO.save(profissional1);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head> </head>
+
+  <body>
+    <div
+      class="container d-flex flex-column align-items-center mt-4"
+      layout:fragment="corpo"
+    >
+      <h3>Cadastrar Vaga</h3>
+      <form
+        th:action="${vaga.id == null} ? @{/vagas/salvar} : @{/vagas/editar}"
+        method="post"
+        class="w-50 mt-4"
+        th:object="${vaga}"
+      >
+        <div 
+          class="row mb-3"
+          th:classappend="${vaga.empresa == null} ? '' : 'd-none'"
+        >
+          <div class="col">
+            <label for="empresa" class="form-label">ID da empresa</label>
+            <input
+              type="text"
+              class="form-control"
+              id="empresa"
+              th:field="*{empresa.id}"
+              th:classappend="${#fields.hasErrors('empresa.id')} ? 'is-invalid' : ''"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea
+              class="form-control"
+              id="descricao"
+              th:field="*{descricao}"
+              th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid' : ''"
+            ></textarea>
+            <div class="invalid-feedback">
+              <span th:errors="*{descricao}"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="remuneracao" class="form-label">Remuneração</label>
+            <input
+              type="text"
+              class="form-control"
+              id="remuneracao"
+              th:field="*{remuneracao}"
+              th:classappend="${#fields.hasErrors('remuneracao')} ? 'is-invalid' : ''"
+            />
+            <div class="invalid-feedback">
+              <span th:errors="*{remuneracao}"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="dataLimiteInscricao" class="form-label"
+              >Data limite de inscrição</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="dataLimiteInscricao"
+              th:field="*{dataLimiteInscricao}"
+              th:classappend="${#fields.hasErrors('dataLimiteInscricao')} ? 'is-invalid' : ''"
+            />
+            <div class="invalid-feedback">
+              <span th:errors="*{dataLimiteInscricao}"></span>
+            </div>
+          </div>
+        </div>
+        <!-- <input type="hidden" th:field="*{empresa}" id="empresa"> -->
+        <input type="hidden" id="id" th:field="*{id}" />
+
+        <div class="d-flex justify-content-center align-items-center pt-3">
+          <button class="btn btn-primary" type="submit">
+            <span
+              th:text="${vaga.id == null} ? 'Cadastrar' : 'Atualizar'"
+            ></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
