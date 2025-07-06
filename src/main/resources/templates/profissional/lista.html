@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head> </head>
+
+  <body>
+    <div layout:fragment="corpo">
+      <div class="container mt-4">
+        <div th:replace="~{fragments/alert}"></div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Sexo</th>
+              <th scope="col">Data de nascimento</th>
+              <th scope="col">Ativo</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="profissional : ${profissionais}">
+              <th scope="row" th:text="${profissional.id}"></th>
+              <td th:text="${profissional.cpf}"></td>
+              <td th:text="${profissional.nome}"></td>
+              <td th:text="${profissional.email}"></td>
+              <td th:text="${profissional.telefone}"></td>
+              <td th:text="${profissional.sexo}"></td>
+              <td
+                th:text="${#temporals.format(profissional.dataNascimento, 'dd/MM/yyyy')}"
+              ></td>
+              <td>
+                <span
+                  th:text="${profissional.enabled ? 'Ativo' : 'Inativo'}"
+                  class="badge"
+                  th:classappend="${profissional.enabled ? 'bg-success' : 'bg-secondary'}"
+                ></span>
+              </td>
+
+              <td>
+                <a
+                  class="btn btn-primary btn-sm"
+                  th:href="@{/profissionais/editar/{id}(id=${profissional.id})}"
+                  >Editar</a
+                >
+                <form
+                  th:action="@{/profissionais/excluir/{id}(id=${profissional.id})}"
+                  method="post"
+                  style="display: inline-block"
+                >
+                  <input
+                    type="submit"
+                    class="btn btn-danger btn-sm"
+                    value="Excluir"
+                  />
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

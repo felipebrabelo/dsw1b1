@@ -5,8 +5,7 @@
   </head>
 
   <body>
-    <header th:fragment="header" class="header">
-      <div class="header__wrapper page-width">
+    <!-- <div class="header__wrapper page-width">
         <div class="header__logo">
           <a th:href="@{/}">
             <h2>VaiTrampar</h2>
@@ -30,7 +29,122 @@
             </form>
           </div>
         </details>
+      </div> -->
+    <nav th:fragment="header" class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <div class="col d-lg-none">
+          <a class="navbar-brand" th:href="@{/}">VaiTrampar</a>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="col">
+            <a class="navbar-brand" th:href="@{/}">VaiTrampar</a>
+          </div>
+          <div class="col">
+            <ul class="navbar-nav justify-content-center">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Vagas
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Minhas vagas</a></li>
+                  <li><a class="dropdown-item" th:href="@{/vagas/cadastrar}">Criar nova vaga</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Profissionais
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" th:href="@{/profissionais}">Listar profissionais</a></li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/profissionais/cadastrar}">Criar novo profissional</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Empresas
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" th:href="@{/empresas}">Listar empresas</a></li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/empresas/cadastrar}">Criar nova empresa</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <div
+              sec:authorize="!isAuthenticated()"
+              class="d-flex justify-content-end"
+            >
+              <a th:href="@{/login}" class="btn btn-primary me-2">
+                Fazer login
+              </a>
+              <a class="btn btn-outline-primary" th:href="@{/usuario/cadastrar}"> Criar uma conta </a>
+            </div>
+            <div
+              sec:authorize="isAuthenticated()"
+              class="d-flex justify-content-end"
+            >
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <button
+                    class="btn btn-dark dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    sec:authentication="principal.nome"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <form th:action="@{/logout}" method="post">
+                        <input
+                          type="submit"
+                          class="dropdown-item"
+                          name="login-submit"
+                          id="login-submit"
+                          value="Sair"
+                        />
+                      </form>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </nav>
   </body>
 </html>

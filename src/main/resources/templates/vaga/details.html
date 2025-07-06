@@ -1,81 +1,104 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<html
+  layout:decorate="~{layout}"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="pt-BR"
+>
+  <head>
+    <title th:text="${vaga.descricao}"></title>
+  </head>
 
-<head>
-	<title th:text="${vaga.descricao}"></title>
-</head>
+  <body>
+    <div class="container mt-4" layout:fragment="corpo">
+      <div
+        th:if="${vagaExpirada}"
+        class="alert alert-danger text-center mb-4"
+        role="alert"
+      >
+        <strong>Atenção:</strong> O período de inscrição para esta vaga já
+        encerrou.
+      </div>
 
-<body>
-	<div class="layout-content page-width section-vaga container" layout:fragment="corpo">
-		<div th:if="${vagaExpirada}" class="alert alert-danger text-center mb-4" role="alert">
-			<strong>Atenção:</strong> O período de inscrição para esta vaga já
-			encerrou.
-		</div>
+      <div class="vaga" th:object="${vaga}">
+        <div class="row justify-content-between align-items-start">
+          <div class="col-auto">
+            <h1 class="h2" th:text="*{descricao}">
+              Título da Vaga Carregado Dinamicamente
+            </h1>
+          </div>
+          <div class="col-auto">
+						<div class="hstack gap-2" sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')">
+							<a
+                th:href="@{/candidaturas/inscrever/{id}(id=*{id})}"
+                class="btn btn-primary"
+                th:classappend="${vagaExpirada} ? 'disabled' : ''"
+              >
+                Candidatar-se
+              </a>
+						</div>
+            <div class="hstack gap-2" sec:authorize="hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')">
+              <a
+                th:href="@{/vagas/{id}/editar(id=*{id})}"
+                class="btn btn-primary"
+              >
+                Editar
+              </a>
+              <a
+                th:href="@{/vagas/{id}/remover(id=*{id})}"
+                class="btn btn-danger"
+              >
+                Remover
+              </a>
+            </div>
+          </div>
+        </div>
 
-		<div class="vaga" th:object="${vaga}">
-			<div class="vaga__header">
-				<h1 class="vaga__title" th:text="*{descricao}">
-					Título da Vaga Carregado Dinamicamente
-				</h1>
+        <span class="company__name" th:text="*{empresa.nome}">
+          Nome da Empresa
+        </span>
 
-				<a th:href="@{/candidaturas/inscrever/{id}(id=*{id})}" class="button button--primary"
-					th:classappend="${vagaExpirada} ? 'disabled' : ''">
-					Candidatar-se
-				</a>
-			</div>
+        <hr />
 
-			<div class="vaga__dates">
-				<p class="vaga__date-expiry text--subdued">
-					Inscrições abertas até
-					<span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}">31/12/2025</span>
-				</p>
-			</div>
+        <div class="text-with-icon">
+          <p th:text="*{empresa.cidade}">Cidade da Empresa</p>
+        </div>
+        <div class="vaga__salary text-with-icon">
+          <p th:text="${#numbers.formatCurrency(vaga.remuneracao)}">
+            R$ 9.999,99
+          </p>
+        </div>
+        <p>
+          Inscrições abertas até
+          <span
+            th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
+            >31/12/2025</span
+          >
+        </p>
 
-			<hr />
+        <hr />
 
-			<div class="vaga__location vaga__info">
-				<div class="text-with-icon">
-					<div th:replace="~{fragments/icons::icon-location}"></div>
-					<p th:text="*{empresa.cidade}">Cidade da Empresa</p>
-				</div>
-				<div class="vaga__salary text-with-icon">
-					<div th:replace="~{fragments/icons::icon-money}"></div>
-					<p th:text="${#numbers.formatCurrency(vaga.remuneracao)}">
-						R$ 9.999,99
-					</p>
-				</div>
-			</div>
+        <div class="vaga__description">
+          <h3>Sobre a Empresa</h3>
+          <div class="vaga__description-content">
+            <p th:text="*{empresa.descricao}">
+              Descrição detalhada sobre a cultura e os projetos da empresa.
+            </p>
+          </div>
+          <div class="company"></div>
+        </div>
 
-			<hr />
+        <hr />
 
-			<div class="vaga__description">
-				<h3>Sobre a Empresa</h3>
-				<div class="vaga__description-content">
-					<p th:text="*{empresa.descricao}">
-						Descrição detalhada sobre a cultura e os projetos da empresa.
-					</p>
-				</div>
-				<div class="company">
-					<img class="company__logo" src="https://placehold.co/300x300" th:alt="*{empresa.nome}" />
-					<span class="company__name" th:text="*{empresa.nome}">Nome da Empresa</span>
-				</div>
-			</div>
-
-			<div class="vaga__description">
-				<h3>Descrição da Vaga</h3>
-				<div class="vaga__description-content">
-					<p th:text="*{descricao}">
-						A descrição completa da vaga, com responsabilidades e requisitos,
-						viria aqui.
-					</p>
-				</div>
-			</div>
-
-			<div class="vaga__footer">
-				<a th:href="@{/vagas}" class="btn btn-secondary">Voltar para a busca</a>
-			</div>
-		</div>
-	</div>
-</body>
-
+        <div class="vaga__description">
+          <h3>Descrição da Vaga</h3>
+          <div class="vaga__description-content">
+            <p th:text="*{descricao}">
+              A descrição completa da vaga, com responsabilidades e requisitos,
+              viria aqui.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

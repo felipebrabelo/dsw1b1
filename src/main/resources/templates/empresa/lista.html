@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head> </head>
+
+  <body>
+    <div layout:fragment="corpo">
+      <div class="container mt-4">
+        <div th:replace="~{fragments/alert}"></div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">CNPJ</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Cidade</th>
+              <th scope="col">Ativo</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="empresa : ${empresas}">
+              <th scope="row" th:text="${empresa.id}"></th>
+              <td th:text="${empresa.cnpj}"></td>
+              <td th:text="${empresa.nome}"></td>
+              <td th:text="${empresa.email}"></td>
+              <td class="col-3" th:text="${empresa.descricao}"></td>
+              <td th:text="${empresa.cidade}"></td>              
+              <td>
+                <span
+                  th:text="${empresa.enabled ? 'Ativo' : 'Inativo'}"
+                  class="badge"
+                  th:classappend="${empresa.enabled ? 'bg-success' : 'bg-secondary'}"
+                ></span>
+              </td>
+
+              <td>
+                <a
+                  class="btn btn-primary btn-sm"
+                  th:href="@{/empresas/editar/{id}(id=${empresa.id})}"
+                  >Editar</a
+                >
+                <form
+                  th:action="@{/empresas/excluir/{id}(id=${empresa.id})}"
+                  method="post"
+                  style="display: inline-block"
+                >
+                  <input
+                    type="submit"
+                    class="btn btn-danger btn-sm"
+                    value="Excluir"
+                  />
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

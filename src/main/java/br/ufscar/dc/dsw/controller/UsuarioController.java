@@ -26,6 +26,11 @@ public class UsuarioController {
   @Autowired
   private ICandidaturaDAO candidaturaRepository;
 
+  @GetMapping("/cadastrar")
+  public String cadastrarUsuario(ModelMap model) {
+    return "usuario/cadastro";
+  }
+
   @GetMapping
   public String listUsuarios(@RequestParam String cargo) {
     return "usuario/list";

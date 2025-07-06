@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
-
-<head>
+  <head>
     <title>Resultados da Busca de Vagas</title>
-</head>
+  </head>
 
-<body>
-    <section class="layout-content page-width" layout:fragment="corpo">
-        <div class="page-title">
-            <h2>Vagas Encontradas</h2>
+  <body>
+    <div class="container" layout:fragment="corpo">
+      <div class="row justify-content-center mt-4">
+        <div th:replace="~{fragments/search-bar::search-bar}"></div>
+      </div>
+
+      <div th:if="${#lists.isEmpty(vagas)}" class="mt-4">
+        <p>Nenhuma vaga encontrada com os critérios informados.</p>
+      </div>
+
+      <div
+        th:unless="${#lists.isEmpty(vagas)}"
+        th:each="vaga : ${vagas}"
+        class="card mt-4"
+      >
+        <div class="card-body">
+          <h2 class="card-title" th:text="${vaga.descricao}"></h2>
+          <h6
+            class="card-subtitle mb-2 text-body-secondary"
+            th:text="${vaga.empresa.nome}"
+          ></h6>
+          <div
+            class="vaga-card__location"
+            th:text="${vaga.empresa.cidade}"
+          ></div>
+          <div>
+            Salário: R$
+            <span
+              th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"
+            ></span>
+          </div>
+          <div class="vaga-card__deadline">
+            Inscrições até:
+            <span
+              th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
+            ></span>
+          </div>
+          <a th:href="@{/vagas/{id}(id=${vaga.id})}" class="stretched-link"></a>
         </div>
-
-        <div class="container container--centered">
-            <div th:replace="~{fragments/search-bar::search-bar}"></div>
-        </div>
-
-        <div class="vagas">
-            <div th:if="${#lists.isEmpty(vagas)}" class="no-results">
-                <p>Nenhuma vaga encontrada com os critérios informados.</p>
-            </div>
-
-            <div th:unless="${#lists.isEmpty(vagas)}" th:each="vaga : ${vagas}" class="vaga">
-                <div class="vaga__header">
-                    <h2 class="vaga__title" th:text="${vaga.descricao}"></h2>
-                </div>
-                <div class="vaga__info">
-                    <div class="vaga-card__location" th:text="${vaga.empresa.cidade}"></div>
-                    <div class="vaga-card__salary">
-                        Salário: R$ <span
-                            th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"></span>
-                    </div>
-                    <div class="vaga-card__deadline">
-                        Inscrições até: <span th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"></span>
-                    </div>
-                </div>
-                <div class="vaga__footer">
-                    <div class="vaga__company">
-                        <span class="vaga__company-name" th:text="${vaga.empresa.nome}"></span>
-                    </div>
-                </div>
-                <a th:href="@{/vagas/{id}(id=${vaga.id})}" class="vaga__link"></a>
-            </div>
-        </div>
-    </section>
-</body>
-
+      </div>
+    </div>
+  </body>
 </html>
