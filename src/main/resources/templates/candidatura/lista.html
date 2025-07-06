@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head> </head>
+
+  <body>
+    <div layout:fragment="corpo">
+      <div class="container mt-4">
+        <div th:replace="~{fragments/alert}"></div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">Status</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="candidatura : ${candidaturas}">
+              <th scope="row" th:text="${candidatura.id}"></th>
+              <td th:text="${candidatura.profissional.nome}"></td>
+              <td th:text="${candidatura.profissional.cpf}"></td>
+              <td th:text="${candidatura.profissional.email}"></td>
+              <td th:text="${candidatura.status}"></td>
+
+              <td>
+                <a
+                  class="btn btn-primary btn-sm"
+                  th:href="@{{cid}(cid=${candidatura.id})}"
+                  >Visualizar</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

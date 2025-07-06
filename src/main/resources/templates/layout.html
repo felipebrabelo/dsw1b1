@@ -1,35 +1,82 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<head>
-
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  data-bs-theme="dark"
+>
+  <head>
     <title th:text="#{title.label}"></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="" />
     <meta name="author" content="" />
     <link rel="icon" th:href="@{/image/favicon.png}" />
 
+    <!-- Bootstrap core CSS -->
+    <link
+      th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <link
+      th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}"
+      rel="stylesheet"
+    />
+
     <!-- Custom styles for this template -->
     <link th:href="@{/css/base.css}" rel="stylesheet" />
-</head>
+  </head>
 
-<body>
-    <div class="page">
-        <header th:replace="~{fragments/header::header}">
-            <div>header</div>
-        </header>
+  <body>
+    <header th:replace="~{fragments/header::header}">
+      <div>header</div>
+    </header>
 
-        <section layout:fragment="corpo">
-            <div>conteúdo principal das páginas</div>
-        </section>
+    <section layout:fragment="corpo">
+      <div>conteúdo principal das páginas</div>
+    </section>
 
-        <!-- <footer th:replace="~{fragments/footer::rodape}">
+    <!-- <footer th:replace="~{fragments/footer::rodape}">
             <div>footer</div>
         </footer> -->
-    </div>
-    <script th:src="@{/js/cidade-autocomplete.js}"></script>
-</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script
+      th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+      var url = "";
 
+      $('button[id*="btn_"]').click(function () {
+        var host = window.location.host + "/";
+        url = "http://" + host + $(this).attr("id").split("_")[1];
+      });
+
+      $("#ok_confirm").click(function () {
+        document.location.href = url;
+      });
+
+      $(function () {
+        $('[data-toggle="popover"]').popover();
+      });
+
+      $(document).ready(function () {
+        $(".navbar-toggle").click(function () {
+          $(".sidebar").toggleClass("sidebar-open");
+        });
+      });
+    </script>
+    <script th:src="@{/js/cidade-autocomplete.js}"></script>
+  </body>
 </html>

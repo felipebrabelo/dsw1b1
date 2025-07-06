@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * Representa a entidade Vaga, conforme os Requisitos 3 e 5.
  * Armazena os dados de uma oportunidade de trabalho/estágio.
@@ -28,6 +30,7 @@ public class Vaga extends AbstractEntity<Long> {
 
     @NotNull(message = "A data limite de inscrição é obrigatória.")
     @Future(message = "A data limite deve ser no futuro.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "data_limite_inscricao", nullable = false)
     private LocalDate dataLimiteInscricao; // Data limite para inscrição na vaga, deve ser no futuro
 

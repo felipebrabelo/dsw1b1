@@ -42,11 +42,10 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests((authz) -> authz
+						.requestMatchers( "/vagas/**").permitAll()
 						.requestMatchers("/error", "/login/**", "/js/**").permitAll()
 						.requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
 						.requestMatchers("/usuario/**").permitAll()
-						.requestMatchers("/compra/**").hasRole("USER")
-						.requestMatchers("/editora/**", "/livro/**", "/usuario/**").hasRole("ADMIN")
 						.anyRequest().authenticated())
 				.formLogin((form) -> form
 						.loginPage("/login")
