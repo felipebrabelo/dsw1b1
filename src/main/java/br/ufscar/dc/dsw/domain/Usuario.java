@@ -28,7 +28,7 @@ public class Usuario extends AbstractEntity<Long> {
     private String role;
 
     @Column(nullable = false)
-    private boolean enabled;
+    private boolean enabled = true;
 
     public String getNome() {
         return nome;
