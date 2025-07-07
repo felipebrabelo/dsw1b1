@@ -1,0 +1,147 @@
+<div class="w-100 mt-4">
+  <div class="row mb-3">
+    <div class="col">
+      <label for="nome" class="form-label">Nome</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nome"
+        th:field="*{nome}"
+        th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{nome}"></span>
+      </div>
+    </div>
+    <div class="col">
+      <label for="cpf" class="form-label">CPF</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cpf"
+        th:field="*{cpf}"
+        th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid' : ''"
+        data-mask="000.000.000-00"
+        data-mask-reverse="true"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{cpf}"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        aria-describedby="emailHelp"
+        th:field="*{email}"
+        th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{email}"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div th:if="${profissional.id == null}" class="col">
+      <label for="senha" class="form-label">Senha</label>
+      <input
+        type="password"
+        class="form-control"
+        id="senha"
+        aria-describedby="senhaHelp"
+        th:field="*{senha}"
+        th:classappend="${#fields.hasErrors('senha')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{senha}"></span>
+      </div>
+    </div>
+    <div th:unless="${profissional.id == null}" class="col">
+      <label for="senha" class="form-label">Nova senha</label>
+      <input
+        type="password"
+        class="form-control"
+        id="senha"
+        name="novaSenha"
+        aria-describedby="senhaHelp"
+        th:classappend="${#fields.hasErrors('senha')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{senha}"></span>
+      </div>
+      <input type="hidden" th:field="*{senha}" />
+    </div>
+    <div class="col">
+      <label for="sexo" class="form-label">Sexo</label>
+      <select
+        class="form-select"
+        id="sexo"
+        th:field="*{sexo}"
+        th:classappend="${#fields.hasErrors('sexo')} ? 'is-invalid' : ''"
+      >
+        <option value="" disabled selected>Selecione o sexo</option>
+        <option value="MASCULINO">Masculino</option>
+        <option value="FEMININO">Feminino</option>
+        <option value="OUTRO">Outro</option>
+      </select>
+      <div class="invalid-feedback">
+        <span th:errors="*{sexo}"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input
+        type="text"
+        class="form-control"
+        id="telefone"
+        th:field="*{telefone}"
+        th:classappend="${#fields.hasErrors('telefone')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{telefone}"></span>
+      </div>
+    </div>
+    <div class="col">
+      <label for="dataNascimento" class="form-label">Data de nascimento</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dataNascimento"
+        th:field="*{dataNascimento}"
+        th:classappend="${#fields.hasErrors('dataNascimento')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{dataNascimento}"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <label for="enabled" class="form-check-label">Ativo</label>
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="enabled"
+        th:field="*{enabled}"
+        th:classappend="${#fields.hasErrors('enabled')} ? 'is-invalid' : ''"
+      />
+      <div class="invalid-feedback">
+        <span th:errors="*{enabled}"></span>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="id" th:field="*{id}" />
+  <div class="d-flex justify-content-center align-items-center pt-3">
+    <button class="btn btn-primary" type="submit">
+      <span
+        th:text="${profissional.id == null} ? 'Cadastrar' : 'Atualizar'"
+      ></span>
+    </button>
+  </div>
+</div>

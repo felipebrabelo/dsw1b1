@@ -34,4 +34,9 @@ public class VagaService implements IVagaService {
 	public List<Vaga> buscarTodos() {
 		return dao.findAll();
 	}
+
+	@Transactional(readOnly = true)
+	public List<Vaga> buscaPorEmpresaId(Long id) {
+		return dao.findByEmpresaId(id.longValue());
+	}
 }

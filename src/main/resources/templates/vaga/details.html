@@ -41,35 +41,6 @@
         </div>
       </div>
 
-      <div 
-        class="w-50 mb-4 border p-4" 
-        id="applyForm" 
-        th:if="${!isCandidato}"
-        sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')"
-      >
-        <form
-          th:action="@{/candidaturas/cadastrar}"
-          method="post"
-          th:object="${candidatura}"
-        >
-          <!-- <div class="mb-3">
-            <label for="curriculo" class="form-label">Currículo</label>
-            <input
-              type="file"
-              class="form-control"
-              id="curriculo"
-              name="curriculo"
-              accept=".pdf"
-            />
-          </div> -->
-          <input type="hidden" th:field="*{vaga.id}" />
-          <input type="hidden" th:field="*{profissional.id}" />
-          <button type="submit" class="btn btn-primary">
-            Enviar Candidatura
-          </button>
-        </form>
-      </div>
-
       <div class="vaga" th:object="${vaga}">
         <div class="row justify-content-between align-items-start">
           <div class="col-auto">

@@ -65,7 +65,15 @@ public class CandidaturaController {
 
   @GetMapping
   public String listar(ModelMap model) {
-    List<Candidatura> candidaturas = candidaturaService.buscarPorProfissional(this.getProfissional());
+    Usuario usuario = this.getUsuario();
+    List<Candidatura> candidaturas = null;
+
+    if (usuario.getRole().equals("ROLE_ADMIN")) {
+      candidaturas = candidaturaService.buscarTodos();
+    } else {
+      candidaturas = candidaturaService.buscarPorProfissional(this.getProfissional());
+    }
+
     model.addAttribute("candidaturas", candidaturas);
 
     return "candidatura/lista";

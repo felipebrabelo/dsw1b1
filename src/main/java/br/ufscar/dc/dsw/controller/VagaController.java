@@ -61,6 +61,14 @@ public class VagaController {
     return null;
   }
 
+  @GetMapping("/minhas-vagas")
+  public String minhasVagas(ModelMap model) {
+    List<Vaga> vagas = vagaService.buscaPorEmpresaId(this.getEmpresa().getId());
+    model.addAttribute("vagas", vagas);
+
+    return "vaga/list";
+  }
+
   @GetMapping("/cadastrar")
   public String cadastrarVaga(Vaga vaga) {
     Empresa empresa = this.getEmpresa();
@@ -125,32 +133,6 @@ public class VagaController {
     if (vaga == null) {
       // Redireciona para a lista de vagas se o ID for inválido.
       return "redirect:/vagas";
-    }
-
-    // Valida os acessos as ações da vaga.
-    Usuario usuario = this.getUsuario();
-    Empresa empresa = this.getEmpresa();
-    Profissional profissional = this.getProfissional();
-    boolean isOwner = false;
-    boolean isCandidato = false;
-
-    if (empresa != null) {
-      isOwner = vaga.getEmpresa().equals(empresa);
-    }
-    if (profissional != null) {
-      isCandidato = candidaturaService.isCandidateByVaga(vaga.getId(), profissional.getId());
-    }
-    if (usuario != null && usuario.getRole().equals("ROLE_ADMIN")) {
-      isOwner = true; // Admin pode ver todas as vagas
-    }
-
-    model.addAttribute("isOwner", isOwner);
-    model.addAttribute("isCandidato", isCandidato);
-
-    // Prepara o objeto candidatura para o formulário de candidatura.
-    if (profissional != null && !isCandidato) {
-      candidatura.setProfissional(profissional);
-      candidatura.setVaga(vaga);
     }
 
     // Verifica se a vaga ainda é válida no momento do acesso.

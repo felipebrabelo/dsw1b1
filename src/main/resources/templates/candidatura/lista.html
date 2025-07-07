@@ -10,6 +10,8 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
+              <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">ID Profissonal</th>
+              <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">ID Vaga</th>
               <th scope="col">Vaga</th>
               <th scope="col">Status</th>
               <th scope="col">Ações</th>
@@ -18,6 +20,8 @@
           <tbody>
             <tr th:each="candidatura : ${candidaturas}">
               <th scope="row" th:text="${candidatura.id}"></th>
+              <td th:text="${candidatura.profissional.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="col-2"></td>
+              <td th:text="${candidatura.vaga.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="col-1"></td>
               <td th:text="${candidatura.vaga.titulo}"></td>
               <td th:text="${candidatura.status}"></td>
               <td>

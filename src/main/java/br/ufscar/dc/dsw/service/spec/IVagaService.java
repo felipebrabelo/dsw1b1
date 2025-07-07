@@ -10,6 +10,8 @@ public interface IVagaService {
 
 	List<Vaga> buscarTodos();
 
+	List<Vaga> buscaPorEmpresaId(Long id);
+
 	void salvar(Vaga editora);
 
 	void excluir(Long id);	

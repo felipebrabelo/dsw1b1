@@ -8,38 +8,13 @@
       layout:fragment="corpo"
     >
       <h3>Cadastrar</h3>
-      <form th:action="@{/cadastrar}" method="post" class="w-50 mt-4">
-        <div class="row mb-3">
-          <div class="col">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="col">
-            <label for="senha" class="form-label">Senha</label>
-            <input
-              type="password"
-              class="form-control"
-              id="senha"
-              aria-describedby="senhaHelp"
-            />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <label for="tipo" class="form-label">Tipo de conta</label>
-            <select id="tipo" class="form-select">
-              <option selected>Selecione uma opção</option>
-              <option value="ROLE_PROFISSIONAL">Profissional</option>
-              <option value="ROLE_EMPRESA">Empresa</option>
-              <option value="ROLE_ADMIN">Administrador</option>
-            </select>
-          </div>
-        </div>
+      <form
+        th:action="${type == 'PROFISSIONAL'} ? @{/salvar} : @{/salvar-empresa}"
+        method="post"
+        th:object="${profissional}"
+      >
+        <div th:if="${type == 'PROFISSIONAL'}" th:replace="~{fragments/profissional-form}"></div>
+        <div th:if="${type == 'EMPRESA'}" th:replace="~{fragments/empresa-form}"></div>
       </form>
     </div>
   </body>

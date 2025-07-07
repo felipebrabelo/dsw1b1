@@ -11,9 +11,14 @@ import java.util.List;
 
 public interface IVagaDAO extends CrudRepository<Vaga, Long> {
 	Vaga findById(long id);
-  Vaga save(Vaga profissional);
-  void deleteById(long id);
-  List<Vaga> findAll();
+
+	Vaga save(Vaga profissional);
+
+	void deleteById(long id);
+
+	List<Vaga> findAll();
+
+	List<Vaga> findByEmpresaId(Long id);
 	// Busca vagas que contenham a cidade da empresa informada e que estejam dentro
 	// da data limite.
 
