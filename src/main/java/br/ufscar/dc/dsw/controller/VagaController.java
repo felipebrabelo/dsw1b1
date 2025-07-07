@@ -40,7 +40,8 @@ public class VagaController {
   private IVagaDAO vagaRepository;
 
   private Usuario getUsuario() {
-    UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
     return usuarioDetails.getUsuario();
   }
 
@@ -76,7 +77,7 @@ public class VagaController {
     }
 
     vagaService.salvar(vaga);
-    attr.addFlashAttribute("success", "vaga.create.sucess");
+    attr.addFlashAttribute("success", "vaga.create.success");
     System.out.println(">>> Vaga cadastrada: " + vaga.getId());
     return "redirect:/vagas";
   }
@@ -117,13 +118,39 @@ public class VagaController {
   }
 
   @GetMapping("/{id}")
-  public String detailsVaga(@PathVariable("id") Long id, ModelMap model) {
+  public String detailsVaga(@PathVariable("id") Long id, Candidatura candidatura, ModelMap model) {
     // Usa o método otimizado para buscar a vaga com os dados da empresa.
-    Vaga vaga = vagaRepository.findByIdWithEmpresa(id);
+    Vaga vaga = vagaService.buscarPorId(id);
 
     if (vaga == null) {
       // Redireciona para a lista de vagas se o ID for inválido.
       return "redirect:/vagas";
+    }
+
+    // Valida os acessos as ações da vaga.
+    Usuario usuario = this.getUsuario();
+    Empresa empresa = this.getEmpresa();
+    Profissional profissional = this.getProfissional();
+    boolean isOwner = false;
+    boolean isCandidato = false;
+
+    if (empresa != null) {
+      isOwner = vaga.getEmpresa().equals(empresa);
+    }
+    if (profissional != null) {
+      isCandidato = candidaturaService.isCandidateByVaga(vaga.getId(), profissional.getId());
+    }
+    if (usuario != null && usuario.getRole().equals("ROLE_ADMIN")) {
+      isOwner = true; // Admin pode ver todas as vagas
+    }
+
+    model.addAttribute("isOwner", isOwner);
+    model.addAttribute("isCandidato", isCandidato);
+
+    // Prepara o objeto candidatura para o formulário de candidatura.
+    if (profissional != null && !isCandidato) {
+      candidatura.setProfissional(profissional);
+      candidatura.setVaga(vaga);
     }
 
     // Verifica se a vaga ainda é válida no momento do acesso.
@@ -140,18 +167,6 @@ public class VagaController {
 
     List<Candidatura> candidaturas = candidaturaService.buscarPorVagaId(id);
     model.addAttribute("candidaturas", candidaturas);
-    return "candidatura/lista";
-  }
-
-  @GetMapping("{id}/candidaturas/{cid}")
-  public String detalhesCandidatura(@PathVariable("id") Long id, @PathVariable("cid") Long cid, ModelMap model) {
-    Candidatura candidatura = candidaturaService.buscarPorId(cid);
-    
-    if (candidatura == null || !candidatura.getVaga().getId().equals(id)) {
-      return "redirect:/vagas/" + id + "/candidaturas";
-    }
-
-    model.addAttribute("candidatura", candidatura);
-    return "candidatura/details";
+    return "vaga/candidaturas";
   }
 }

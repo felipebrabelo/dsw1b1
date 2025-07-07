@@ -68,25 +68,29 @@ public class VaiTramparApplication {
 
 			// --- Criando e Salvando Vagas, associadas às empresas ---
 			Vaga vaga1 = new Vaga();
-			vaga1.setDescricao("Engenheiro de Software Backend");
+			vaga1.setTitulo("Engenheiro de Software Backend");
+			vaga1.setDescricao("Desenvolvimento de sistemas backend em Java e Python.");
 			vaga1.setRemuneracao(new BigDecimal("9500.00"));
 			vaga1.setDataLimiteInscricao(LocalDate.now().plusMonths(1));
 			vaga1.setEmpresa(empresa1); // Associa a vaga à Google
 
 			Vaga vaga2 = new Vaga();
-			vaga2.setDescricao("Desenvolvedor Java Pleno (remoto)");
+			vaga2.setTitulo("Desenvolvedor Java Pleno (remoto)");
+			vaga2.setDescricao("Desenvolvimento de aplicações Java em ambiente remoto.");
 			vaga2.setRemuneracao(new BigDecimal("7000.00"));
 			vaga2.setDataLimiteInscricao(LocalDate.now().plusDays(20));
 			vaga2.setEmpresa(empresa2); // Associa a vaga ao iFood
 
 			Vaga vaga3 = new Vaga();
-			vaga3.setDescricao("Analista de Dados com foco em Python");
+			vaga3.setTitulo("Analista de Dados com foco em Python");
+			vaga3.setDescricao("Análise de dados e desenvolvimento de scripts em Python.");
 			vaga3.setRemuneracao(new BigDecimal("8000.00"));
 			vaga3.setDataLimiteInscricao(LocalDate.now().plusMonths(2));
 			vaga3.setEmpresa(empresa1); // Associa a vaga à Google em São Paulo
 
 			Vaga vaga4 = new Vaga();
-			vaga4.setDescricao("Estágio em Desenvolvimento de Software");
+			vaga4.setTitulo("Estágio em Desenvolvimento de Software");
+			vaga4.setDescricao("Oportunidade de estágio para estudantes de Ciência da Computação.");
 			vaga4.setRemuneracao(new BigDecimal("2200.00"));
 			vaga4.setDataLimiteInscricao(LocalDate.now().plusDays(15));
 			vaga4.setEmpresa(empresa2); // Associa a vaga ao iFood em São Carlos

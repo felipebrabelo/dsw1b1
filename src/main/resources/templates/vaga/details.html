@@ -5,7 +5,7 @@
   lang="pt-BR"
 >
   <head>
-    <title th:text="${vaga.descricao}"></title>
+    <title th:text="${vaga.titulo}"></title>
   </head>
 
   <body>
@@ -19,37 +19,63 @@
         encerrou.
       </div>
 
+      <div class="mb-4">
+        <div
+          class="hstack gap-2 justify-content-end"
+          sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN') "
+        >
+          <button class="btn btn-primary" type="button" id="applyButton">
+            Candidatar-se
+          </button>
+        </div>
+        <div class="hstack gap-2" th:if="${isOwner}">
+          <a
+            th:href="@{/vagas/{id}/candidaturas(id=*{id})}"
+            class="btn btn-primary"
+          >
+            Visualizar candidaturas
+          </a>
+          <a th:href="@{/vagas/{id}/remover(id=*{id})}" class="btn btn-danger">
+            Remover
+          </a>
+        </div>
+      </div>
+
+      <div 
+        class="w-50 mb-4 border p-4" 
+        id="applyForm" 
+        th:if="${!isCandidato}"
+        sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')"
+      >
+        <form
+          th:action="@{/candidaturas/cadastrar}"
+          method="post"
+          th:object="${candidatura}"
+        >
+          <!-- <div class="mb-3">
+            <label for="curriculo" class="form-label">Currículo</label>
+            <input
+              type="file"
+              class="form-control"
+              id="curriculo"
+              name="curriculo"
+              accept=".pdf"
+            />
+          </div> -->
+          <input type="hidden" th:field="*{vaga.id}" />
+          <input type="hidden" th:field="*{profissional.id}" />
+          <button type="submit" class="btn btn-primary">
+            Enviar Candidatura
+          </button>
+        </form>
+      </div>
+
       <div class="vaga" th:object="${vaga}">
         <div class="row justify-content-between align-items-start">
           <div class="col-auto">
-            <h1 class="h2" th:text="*{descricao}">
+            <h1 class="h2" th:text="*{titulo}">
               Título da Vaga Carregado Dinamicamente
             </h1>
-          </div>
-          <div class="col-auto">
-						<div class="hstack gap-2" sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')">
-							<a
-                th:href="@{/candidaturas/inscrever/{id}(id=*{id})}"
-                class="btn btn-primary"
-                th:classappend="${vagaExpirada} ? 'disabled' : ''"
-              >
-                Candidatar-se
-              </a>
-						</div>
-            <div class="hstack gap-2" sec:authorize="hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')">
-              <a
-                th:href="@{/vagas/{id}/editar(id=*{id})}"
-                class="btn btn-primary"
-              >
-                Editar
-              </a>
-              <a
-                th:href="@{/vagas/{id}/remover(id=*{id})}"
-                class="btn btn-danger"
-              >
-                Remover
-              </a>
-            </div>
           </div>
         </div>
 
@@ -100,5 +126,10 @@
         </div>
       </div>
     </div>
+    <script>
+      (() => {
+        const applyButton = document.getElementById("applyButton");
+      })();
+    </script>
   </body>
 </html>

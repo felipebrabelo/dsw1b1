@@ -19,6 +19,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "vagas")
 public class Vaga extends AbstractEntity<Long> {
+    @NotBlank(message = "O título é obrigatório.")
+    @Column(nullable = false, length = 100)
+    private String titulo;
+
     @NotBlank(message = "A descrição é obrigatória.")
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descricao; // Descrição da vaga, pode ser longa
@@ -42,6 +46,14 @@ public class Vaga extends AbstractEntity<Long> {
 
     // Construtor padrão
     public Vaga() {
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescricao() {

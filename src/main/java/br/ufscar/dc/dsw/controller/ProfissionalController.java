@@ -44,7 +44,7 @@ public class ProfissionalController {
 
     profissional.setSenha(encoder.encode(profissional.getSenha()));
     profissionalService.salvar(profissional);
-    attr.addFlashAttribute("success", "usuario.create.sucess");
+    attr.addFlashAttribute("success", "usuario.create.success");
     System.out.println(">>> Profissional cadastrado: " + profissional.getId());
     return "redirect:/profissionais";
   }
@@ -74,14 +74,14 @@ public class ProfissionalController {
     }
 
     profissionalService.salvar(profissional);
-    attr.addFlashAttribute("success", "usuario.edit.sucess");
+    attr.addFlashAttribute("success", "usuario.edit.success");
     return "redirect:/profissionais";
   }
 
   @PostMapping("/excluir/{id}")
   public String excluirProfissional(@PathVariable("id") Long id, RedirectAttributes attr){
     profissionalService.excluir(id);
-    attr.addFlashAttribute("success", "usuario.delete.sucess");
+    attr.addFlashAttribute("success", "usuario.delete.success");
     System.out.println(">>> Profissional excluído: " + id);
     return "redirect:/profissionais";
   }

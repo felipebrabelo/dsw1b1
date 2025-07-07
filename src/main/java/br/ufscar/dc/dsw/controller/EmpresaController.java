@@ -47,7 +47,7 @@ public class EmpresaController {
 
     empresa.setSenha(encoder.encode(empresa.getSenha()));
     empresaService.salvar(empresa);
-    attr.addFlashAttribute("success", "empresa.create.sucess");
+    attr.addFlashAttribute("success", "empresa.create.success");
     System.out.println(">>> Empresa cadastrada: " + empresa.getId());
     return "redirect:/empresas";
   }
@@ -74,7 +74,7 @@ public class EmpresaController {
     }
 
     empresaService.salvar(empresa);
-    attr.addFlashAttribute("success", "empresa.edit.sucess");
+    attr.addFlashAttribute("success", "empresa.edit.success");
     System.out.println(">>> Empresa editada: " + empresa.getId());
     return "redirect:/empresas";
   }

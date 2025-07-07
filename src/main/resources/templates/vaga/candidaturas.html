@@ -10,7 +10,9 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Vaga</th>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">E-mail</th>
               <th scope="col">Status</th>
               <th scope="col">Ações</th>
             </tr>
@@ -18,12 +20,15 @@
           <tbody>
             <tr th:each="candidatura : ${candidaturas}">
               <th scope="row" th:text="${candidatura.id}"></th>
-              <td th:text="${candidatura.vaga.titulo}"></td>
+              <td th:text="${candidatura.profissional.nome}"></td>
+              <td th:text="${candidatura.profissional.cpf}"></td>
+              <td th:text="${candidatura.profissional.email}"></td>
               <td th:text="${candidatura.status}"></td>
+
               <td>
                 <a
                   class="btn btn-primary btn-sm"
-                  th:href="@{/{cid}(cid=${candidatura.id})}"
+                  th:href="@{{cid}(cid=${candidatura.id})}"
                   >Visualizar</a
                 >
               </td>
