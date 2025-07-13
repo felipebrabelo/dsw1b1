@@ -12,6 +12,7 @@ import br.ufscar.dc.dsw.service.impl.VagaService;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,7 @@ public class VagaController {
   @Autowired
   private CandidaturaService candidaturaService;
 
-  @Autowired
-  private IVagaDAO vagaRepository;
+  
 
   private Usuario getUsuario() {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -105,27 +105,9 @@ public class VagaController {
       // ALTERAÇÃO 1: Mapeia o parâmetro "local" da URL para a variável "cidade"
       @RequestParam(name = "local", required = false) String cidade,
       ModelMap model) {
-
-    List<Vaga> vagas;
-    LocalDate dataAtual = LocalDate.now(); // Pega a data atual uma vez
-
-    boolean buscaPorCargo = cargo != null && !cargo.trim().isEmpty();
-    boolean buscaPorCidade = cidade != null && !cidade.trim().isEmpty();
-
-    if (buscaPorCargo && buscaPorCidade) {
-      vagas = vagaRepository
-          .findByDescricaoContainingIgnoreCaseAndEmpresaCidadeContainingIgnoreCaseAndDataLimiteInscricaoGreaterThanEqual(
-              cargo, cidade, dataAtual);
-    } else if (buscaPorCargo) {
-      vagas = vagaRepository.findByDescricaoContainingIgnoreCaseAndDataLimiteInscricaoGreaterThanEqual(cargo,
-          dataAtual);
-    } else if (buscaPorCidade) {
-      vagas = vagaRepository.findByEmpresaCidadeContainingIgnoreCaseAndDataLimiteInscricaoGreaterThanEqual(cidade,
-          dataAtual);
-    } else {
-      vagas = vagaRepository.findAllByDataLimiteInscricaoGreaterThanEqual(dataAtual);
-    }
-
+        List<Vaga> vagas = vagaService.buscarVagasAbertasComFiltros(cargo, cidade);
+        
+       
     model.addAttribute("vagas", vagas);
     model.addAttribute("cargo", cargo);
     // ALTERAÇÃO 2: Envia o valor de volta para a view com o nome "local" para
