@@ -15,113 +15,121 @@
         class="alert alert-danger text-center mb-4"
         role="alert"
       >
-        <strong>Atenção:</strong> O período de inscrição para esta vaga já
-        encerrou.
+        <strong>Atenção:</strong>
+        O período de inscrição para esta vaga já encerrou.
       </div>
-
-      <div class="mb-4">
-        <div
-          class="hstack gap-2 justify-content-end"
-          sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN') "
-        >
-          <button class="btn btn-primary" type="button" id="applyButton">
-            Candidatar-se
-          </button>
-        </div>
-        <div class="hstack gap-2" th:if="${isOwner}">
-          <a
-            th:href="@{/vagas/{id}/candidaturas(id=*{id})}"
-            class="btn btn-primary"
-          >
-            Visualizar candidaturas
-          </a>
-          <a th:href="@{/vagas/{id}/remover(id=*{id})}" class="btn btn-danger">
-            Remover
-          </a>
-        </div>
-      </div>
-
-      <div 
-        class="w-50 mb-4 border p-4" 
-        id="applyForm" 
-        th:if="${!isCandidato}"
-        sec:authorize="!hasAnyRole('ROLE_EMPRESA', 'ROLE_ADMIN')"
+      <div
+        th:if="${isCandidato}"
+        class="alert alert-info" role="alert"
+        th:text="#{profissional.candidatado}"
       >
-        <form
-          th:action="@{/candidaturas/cadastrar}"
-          method="post"
-          th:object="${candidatura}"
-        >
-          <!-- <div class="mb-3">
-            <label for="curriculo" class="form-label">Currículo</label>
-            <input
-              type="file"
-              class="form-control"
-              id="curriculo"
-              name="curriculo"
-              accept=".pdf"
-            />
-          </div> -->
-          <input type="hidden" th:field="*{vaga.id}" />
-          <input type="hidden" th:field="*{profissional.id}" />
-          <button type="submit" class="btn btn-primary">
-            Enviar Candidatura
-          </button>
-        </form>
+
       </div>
+      <div th:replace="~{fragments/alert}"></div>
 
-      <div class="vaga" th:object="${vaga}">
-        <div class="row justify-content-between align-items-start">
-          <div class="col-auto">
-            <h1 class="h2" th:text="*{titulo}">
-              Título da Vaga Carregado Dinamicamente
-            </h1>
-          </div>
-        </div>
-
-        <span class="company__name" th:text="*{empresa.nome}">
-          Nome da Empresa
-        </span>
-
-        <hr />
-
-        <div class="text-with-icon">
-          <p th:text="*{empresa.cidade}">Cidade da Empresa</p>
-        </div>
-        <div class="vaga__salary text-with-icon">
-          <p th:text="${#numbers.formatCurrency(vaga.remuneracao)}">
-            R$ 9.999,99
-          </p>
-        </div>
-        <p>
-          Inscrições abertas até
-          <span
-            th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
-            >31/12/2025</span
+      <div class="vaga">
+        <div th:if="${!isCandidato && !vagaExpirada}">
+          <form
+            th:action="@{/candidaturas/cadastrar}"
+            th:if="${candidatura != null}"
+            method="post"
+            enctype="multipart/form-data"
+            th:object="${candidatura}"
+            class="p-4 border mb-4"
+            sec:authorize="hasRole('ROLE_PROFISSIONAL')"
           >
-        </p>
-
-        <hr />
-
-        <div class="vaga__description">
-          <h3>Sobre a Empresa</h3>
-          <div class="vaga__description-content">
-            <p th:text="*{empresa.descricao}">
-              Descrição detalhada sobre a cultura e os projetos da empresa.
-            </p>
-          </div>
-          <div class="company"></div>
+            <input type="hidden" th:field="*{vaga.id}" />
+            <input type="hidden" th:field="*{profissional.id}" />
+            <div class="form-group">
+              <label class="form-label">Currículo (PDF):</label>
+              <input
+                type="file"
+                th:name="curriculoFile"
+                accept=".pdf"
+                class="form-control"
+                required="required"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary mt-3"
+              th:text="Candidatar-se"
+            ></button>
+          </form>
         </div>
 
-        <hr />
+        <div th:object="${vaga}">
+          <div class="row justify-content-between align-items-start">
+            <div class="col-auto">
+              <h1 class="h2" th:text="*{titulo}">
+                Título da Vaga Carregado Dinamicamente
+              </h1>
+            </div>
+            <div class="col-auto">
+              <div class="hstack gap-2 justify-content-end">
+                <a
+                  th:href="@{/vagas/{id}/candidaturas(id=*{id})}"
+                  class="btn btn-primary"
+                  th:if="${isOwner}"
+                >
+                  Visualizar candidaturas
+                </a>
+                <a
+                  th:href="@{/vagas/{id}/remover(id=*{id})}"
+                  class="btn btn-danger"
+                  sec:authorize="hasRole('ROLE_ADMIN')"
+                >
+                  Remover
+                </a>
+              </div>
+            </div>
+          </div>
 
-        <div class="vaga__description">
-          <h3>Descrição da Vaga</h3>
-          <div class="vaga__description-content">
-            <p th:text="*{descricao}">
-              A descrição completa da vaga, com responsabilidades e requisitos,
-              viria aqui.
+          <span class="company__name" th:text="*{empresa.nome}">
+            Nome da Empresa
+          </span>
+
+          <hr />
+
+          <div class="text-with-icon">
+            <p th:text="*{empresa.cidade}">Cidade da Empresa</p>
+          </div>
+          <div class="vaga__salary text-with-icon">
+            <p th:text="${#numbers.formatCurrency(vaga.remuneracao)}">
+              R$ 9.999,99
             </p>
+          </div>
+          <p>
+            Inscrições abertas até
+            <span
+              th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
+            >
+              31/12/2025
+            </span>
+          </p>
+
+          <hr />
+
+          <div class="vaga__description">
+            <h3>Sobre a Empresa</h3>
+            <div class="vaga__description-content">
+              <p th:text="*{empresa.descricao}">
+                Descrição detalhada sobre a cultura e os projetos da empresa.
+              </p>
+            </div>
+            <div class="company"></div>
+          </div>
+
+          <hr />
+
+          <div class="vaga__description">
+            <h3>Descrição da Vaga</h3>
+            <div class="vaga__description-content">
+              <p th:text="*{descricao}">
+                A descrição completa da vaga, com responsabilidades e
+                requisitos, viria aqui.
+              </p>
+            </div>
           </div>
         </div>
       </div>

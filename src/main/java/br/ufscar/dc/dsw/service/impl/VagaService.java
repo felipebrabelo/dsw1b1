@@ -37,6 +37,10 @@ public class VagaService implements IVagaService {
 		return dao.findAll();
 	}
 
+	@Transactional(readOnly = true)
+	public List<Vaga> buscaPorEmpresaId(Long id) {
+		return dao.findByEmpresa_Id(id.longValue());
+	}
 	@Override
 	public List<Vaga> buscarVagasAbertasComFiltros(String descricao, String cidade) {
 		LocalDate dataAtual = LocalDate.now();

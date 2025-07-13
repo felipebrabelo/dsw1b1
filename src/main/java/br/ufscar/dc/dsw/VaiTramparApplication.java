@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
@@ -49,15 +50,15 @@ public class VaiTramparApplication {
 			// --- Criando e Salvando Empresas ---
 			Empresa empresa1 = new Empresa();
 			empresa1.setEmail("google@google.com");
-			empresa1.setSenha(encoder.encode("admin")); // codificar a senha eventaulmente
+			empresa1.setSenha(encoder.encode("google")); // codificar a senha eventaulmente
 			empresa1.setCnpj("06.990.590/0001-23");
 			empresa1.setNome("Google Brasil");
 			empresa1.setDescricao("Uma empresa de tecnologia multinacional.");
 			empresa1.setCidade("São Paulo");
 
 			Empresa empresa2 = new Empresa();
-			empresa2.setEmail("rh@ifood.com.br");
-			empresa2.setSenha(encoder.encode("123456"));
+			empresa2.setEmail("ifood@ifood.com");
+			empresa2.setSenha(encoder.encode("ifood"));
 			empresa2.setCnpj("11.461.851/0001-90");
 			empresa2.setNome("iFood");
 			empresa2.setDescricao("Empresa brasileira de entrega de comida online.");
@@ -112,13 +113,17 @@ public class VaiTramparApplication {
 			profissionalDAO.save(profissional1);
 
 			// --- Criando e Salvando Candidaturas ---
-			Candidatura candidatura1 = new Candidatura(
-				profissional1, vaga1
-			);
+			Candidatura candidatura1 = new Candidatura();
+			candidatura1.setProfissional(profissional1);
+			candidatura1.setVaga(vaga1);
+			candidatura1.setStatus("ENTREVISTA");
+			candidatura1.setStatusDescription(
+					"Parabéns! Você foi selecionado para a entrevista.");
+			candidatura1.setEntrevistaLink("https://meet.google.com/abc-defg-hij");
+			candidatura1.setEntrevistaData(LocalDateTime.now().plusDays(3));
 
 			Candidatura candidatura2 = new Candidatura(
-				profissional1, vaga2
-			);
+					profissional1, vaga2);
 
 			// Salva as candidaturas
 			candidaturaDAO.saveAll(Arrays.asList(candidatura1, candidatura2));

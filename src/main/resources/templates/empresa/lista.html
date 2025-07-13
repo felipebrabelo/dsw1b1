@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
-  <head> </head>
+  <head></head>
 
   <body>
     <div layout:fragment="corpo">
@@ -25,8 +25,8 @@
               <td th:text="${empresa.cnpj}"></td>
               <td th:text="${empresa.nome}"></td>
               <td th:text="${empresa.email}"></td>
-              <td class="col-3" th:text="${empresa.titulo}"></td>
-              <td th:text="${empresa.cidade}"></td>              
+              <td class="col-3" th:text="${empresa.descricao}"></td>
+              <td th:text="${empresa.cidade}"></td>
               <td>
                 <span
                   th:text="${empresa.enabled ? 'Ativo' : 'Inativo'}"
@@ -38,11 +38,12 @@
               <td>
                 <a
                   class="btn btn-primary btn-sm"
-                  th:href="@{/empresas/editar/{id}(id=${empresa.id})}"
-                  >Editar</a
+                  th:href="@{/empresa/editar/{id}(id=${empresa.id})}"
                 >
+                  Editar
+                </a>
                 <form
-                  th:action="@{/empresas/excluir/{id}(id=${empresa.id})}"
+                  th:action="@{/empresa/excluir/{id}(id=${empresa.id})}"
                   method="post"
                   style="display: inline-block"
                 >

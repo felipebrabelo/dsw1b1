@@ -1,6 +1,9 @@
 package br.ufscar.dc.dsw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,17 +16,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Empresa;
+import br.ufscar.dc.dsw.domain.Vaga;
+import br.ufscar.dc.dsw.security.UsuarioDetails;
+import br.ufscar.dc.dsw.service.impl.VagaService;
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/empresas")
+@RequestMapping("/empresa")
 public class EmpresaController {
   @Autowired
   private IEmpresaService empresaService;
 
   @Autowired
+  private VagaService vagaService;
+
+  @Autowired
   private BCryptPasswordEncoder encoder;
+
+  private Empresa getEmpresa() {
+    UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+    if (usuarioDetails.getUsuario() instanceof Empresa) {
+      return (Empresa) usuarioDetails.getUsuario();
+    }
+    return null;
+  } 
 
   @GetMapping
   public String listarEmpresas(ModelMap model) {
@@ -77,5 +95,16 @@ public class EmpresaController {
     attr.addFlashAttribute("success", "empresa.edit.success");
     System.out.println(">>> Empresa editada: " + empresa.getId());
     return "redirect:/empresas";
+  }
+
+  @GetMapping("/vagas")
+  public String listarVagas(ModelMap model) {
+    Empresa empresa = this.getEmpresa();
+    List<Vaga> vagas = List.of();
+    if (empresa != null) {
+      vagas = vagaService.buscaPorEmpresaId(empresa.getId());
+    }
+    model.addAttribute("vagas", vagas);
+    return "vaga/list";
   }
 }
