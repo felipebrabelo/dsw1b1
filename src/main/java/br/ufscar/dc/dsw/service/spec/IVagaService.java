@@ -17,6 +17,6 @@ public interface IVagaService {
 
 	void excluir(Long id);
 
-	List<Vaga> buscarVagasAbertasComFiltros(String descricao, String cidade);	
+	List<Vaga> buscarVagasAbertasComFiltros(String cargo, String cidade);	
 	List<Vaga> buscarAbertasDaEmpresa(Long id); 
 }

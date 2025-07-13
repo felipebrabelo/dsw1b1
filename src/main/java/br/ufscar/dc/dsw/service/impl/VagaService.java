@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,21 +42,11 @@ public class VagaService implements IVagaService {
 	public List<Vaga> buscaPorEmpresaId(Long id) {
 		return dao.findByEmpresa_Id(id.longValue());
 	}
-	@Override
-	public List<Vaga> buscarVagasAbertasComFiltros(String descricao, String cidade) {
-		LocalDate dataAtual = LocalDate.now();
-		if (descricao != null && cidade != null) {
-			return dao
-					.findByDescricaoContainingIgnoreCaseAndEmpresaCidadeContainingIgnoreCaseAndDataLimiteInscricaoGreaterThanEqual(
-							descricao, cidade, dataAtual);
-		} else if (descricao != null) {
-			return dao.findByDescricaoContainingIgnoreCaseAndDataLimiteInscricaoGreaterThanEqual(descricao, dataAtual);
-		} else if (cidade != null) {
-			return dao.findByEmpresaCidadeContainingIgnoreCaseAndDataLimiteInscricaoGreaterThanEqual(cidade, dataAtual);
-		} else {
-			return buscarTodos();
-		}
 
+	@Transactional
+	public List<Vaga> buscarVagasAbertasComFiltros(String cargo, String cidade) {
+		LocalDate dataAtual = LocalDate.now();
+			return dao.findWithFilters(cargo, cidade, dataAtual);
 	}
 
 	@Override
@@ -63,4 +54,5 @@ public class VagaService implements IVagaService {
 		return dao.findByEmpresa_Id(id);
 	}
 
+	
 }
