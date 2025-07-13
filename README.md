@@ -92,5 +92,5 @@ A aplicação estará disponível em http://localhost:8080.
 
 ## Equipe
 [João Vitor Azevedo](https://github.com/JoaoVitorAzevedo)
-Felipe
-Fábricio
+[Fábricio Rodrigues](https://github.com/devfabri)
+
