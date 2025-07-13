@@ -10,7 +10,7 @@ public interface IUsuarioService {
 
 	List<Usuario> buscarTodos();
 
-	void salvar(Usuario editora);
+	void salvar(Usuario user);
 
 	void excluir(Long id);	
 }

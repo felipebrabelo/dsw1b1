@@ -11,7 +11,7 @@ public interface ICandidaturaService {
 
 	List<Candidatura> buscarTodos();
 
-  List<Candidatura> buscarPorVagaId(Long id);
+	List<Candidatura> buscarPorVagaId(Long id);
 
 	List<Candidatura> buscarPorProfissional(Profissional profissional);
 
@@ -19,5 +19,5 @@ public interface ICandidaturaService {
 
 	void salvar(Candidatura editora);
 
-	void excluir(Long id);	
+	void excluir(Long id);
 }
