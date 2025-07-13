@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Candidatura;
-import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Vaga;
@@ -49,14 +48,6 @@ public class CandidaturaController {
     UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
     return usuarioDetails.getUsuario();
-  }
-
-  private Empresa getEmpresa() {
-    Usuario usuario = this.getUsuario();
-    if (usuario instanceof Empresa) {
-      return (Empresa) usuario;
-    }
-    return null;
   }
 
   private Profissional getProfissional() {

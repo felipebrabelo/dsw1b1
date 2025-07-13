@@ -75,7 +75,7 @@
                   Visualizar candidaturas
                 </a>
                 <a
-                  th:href="@{/vagas/{id}/remover(id=*{id})}"
+                  th:href="@{/vagas/{id}/excluir(id=*{id})}"
                   class="btn btn-danger"
                   sec:authorize="hasRole('ROLE_ADMIN')"
                 >

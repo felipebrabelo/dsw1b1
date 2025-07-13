@@ -5,35 +5,26 @@
   </head>
   <body>
     <search-bar th:fragment="search-bar" class="d-flex justify-content-center">
-      <form th:action="@{/vagas}" method="get" class="d-flex">
-        <div class="row g-1">
-          <div class="col-5">
-            <input
-              type="text"
-              name="cargo"
-              class="form-control"
-              placeholder="Cargo ou palavra-chave"
-              th:value="${cargo}"
-            />
-          </div>
+      <form th:action="@{/vagas}" method="get" class="d-flex w-50">
+        <div class="input-group w-100">
+          <input
+            type="text"
+            name="cargo"
+            class="form-control"
+            placeholder="Cargo ou palavra-chave"
+            th:value="${cargo}"
+          />
 
-          <div class="col-5">
-            <input
-              type="text"
-              name="local"
-              class="form-control js-cidade-input"
-              placeholder="Cidade, estado ou região"
-              th:value="${local}"
-            />
-            <div class="js-cidade-autocomplete" style="display: none">
-              <div class="autocomplete__item">São Carlos, SP</div>
-              <div class="autocomplete__item">São Paulo, SP</div>
-              <div class="autocomplete__item">São Sebastião, SP</div>
-            </div>
-          </div>
-          <div class="col">
-            <button class="btn btn-primary" type="submit">Buscar</button>
-          </div>
+          <input
+            type="text"
+            name="local"
+            class="form-control js-cidade-input"
+            placeholder="Cidade, estado ou região"
+            th:value="${local}"
+            list="cidadesList"
+          />
+          <datalist id="cidadesList" class="js-cidade-autocomplete"></datalist>
+          <button class="btn btn-primary" type="submit">Buscar</button>
         </div>
       </form>
     </search-bar>

@@ -166,6 +166,18 @@ public class VagaController {
     return "vaga/candidaturas";
   }
 
+  @GetMapping("{id}/excluir")
+  public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+    if (!candidaturaService.buscarPorVagaId(id).isEmpty()) {
+      attr.addFlashAttribute("fail", "vaga.delete.fail");
+      return "redirect:/vagas";
+    }
+
+    vagaService.excluir(id);
+    attr.addFlashAttribute("success", "vaga.delete.success");
+    return "redirect:/vagas";
+  }
+
   private boolean isCandidato(Vaga vaga) {
     Profissional profissional = this.getProfissional();
     if (profissional == null) {
@@ -173,6 +185,11 @@ public class VagaController {
     }
 
     return candidaturaService.isCandidateByVaga(vaga.getId(), profissional.getId());
+  }
+
+  private boolean isAdmin() {
+    Usuario usuario = this.getUsuario();
+    return usuario != null && usuario.getRole().equals("ROLE_ADMIN");
   }
 
   private boolean isOwner(Vaga vaga) {

@@ -30,6 +30,9 @@
               class="navbar-nav justify-content-center"
               sec:authorize="isAuthenticated()"
             >
+              <li class="nav-item" sec:authorize="hasRole('ROLE_PROFISSIONAL')">
+                <a class="nav-link" th:href="@{/vagas}">Vagas</a>
+              </li>
               <li class="nav-item" sec:authorize="!hasAnyRole('ROLE_EMPRESA')">
                 <a
                   class="nav-link"
@@ -133,9 +136,6 @@
             >
               <a th:href="@{/login}" class="btn btn-primary me-2">
                 Fazer login
-              </a>
-              <a class="btn btn-outline-primary" th:href="@{/cadastrar}">
-                Criar uma conta
               </a>
             </div>
             <div

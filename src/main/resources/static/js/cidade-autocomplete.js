@@ -5645,7 +5645,7 @@
         this.cidadeInput.addEventListener("input", (event) => {
           const input = event.target.value;
           if (input.length < 2) {
-            this.hideAutoComplete();
+            this.clearAutoComplete();
             return;
           }
           const cidadeList = this.cidadeFilter(input);
@@ -5657,34 +5657,17 @@
 
       renderOptions(cidades) {
         this.cidadeAutoComplete.innerHTML = "";
-        if (cidades.length === 0) {
-          this.hideAutoComplete();
-          return;
-        }
-        this.showAutoComplete();
         cidades.forEach((cidade) => {
           this.cidadeAutoComplete.innerHTML += `
-            <div class="autocomplete__item js-autocomplete-item" data-cidade="${cidade.name}">
+            <option data-cidade="${cidade.name}" value="${cidade.name}">
               ${cidade.name}, ${cidade.state}
-            </div>
+            </option>
           `;
         });
-        this.updateTriggers();
       }
 
-      updateTriggers() {
-        const autocompleteItems = this.querySelectorAll(".js-autocomplete-item");
-        autocompleteItems.forEach((item) => {
-          item.addEventListener("click", (event) => {
-            this.completeInput(event);
-          });
-        });
-      }
-
-      completeInput(event) {
-        const cidadeName = event.target.dataset.cidade;
-        this.cidadeInput.value = cidadeName;
-        this.hideAutoComplete();
+      clearAutoComplete() {
+        this.cidadeAutoComplete.innerHTML = "";
       }
 
       hideAutoComplete() {
