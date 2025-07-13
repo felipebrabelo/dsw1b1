@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head></head>
+
+  <body>
+    <div layout:fragment="corpo">
+      <form
+        th:action="@{/candidaturas/atualizar-status}"
+        method="post"
+        class="container my-4"
+        th:object="${candidatura}"
+      >
+        <div th:replace="~{fragments/alert}"></div>
+        <h2 class="text-center mb-4">Detalhes da Candidatura</h2>
+        <div class="row mb-3">
+          <h3 th:text="*{profissional.nome}"></h3>
+        </div>
+        <div class="mb-3">
+          <div class="mb-1">
+            <strong>E-mail</strong>
+            <span th:text="*{profissional.email}"></span>
+          </div>
+          <div class="mb-1">
+            <strong>Telefone</strong>
+            <span th:text="*{profissional.telefone}"></span>
+          </div>
+          <div class="mb-1">
+            <strong>Data de Nascimento</strong>
+            <span
+              th:text="*{#temporals.format(profissional.dataNascimento, 'dd/MM/yyyy')}"
+            ></span>
+          </div>
+          <div class="mb-1">
+            <strong>Sexo</strong>
+            <span th:text="*{profissional.sexo}"></span>
+          </div>
+          <div class="mt-3" th:if="*{curriculoPath}">
+            <a
+              th:href="@{*{curriculoPath}}"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              Baixar Currículo
+            </a>
+          </div>
+        </div>
+        <div class="p-4 border">
+          <h3 class="mb-3">Controle da candidatura</h3>
+          <div class="h-stack">
+            <strong>Vaga:</strong>
+            <span th:text="*{vaga.titulo}"></span>
+          </div>
+          <div class="h-stack">
+            <strong>Data limite:</strong>
+            <span
+              th:text="*{#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
+            ></span>
+          </div>
+          <div class="h-stack">
+            <strong>Status:</strong>
+            <span th:text="*{status}"></span>
+          </div>
+          <div class="mt-3">
+            <div th:if="${subscriptionFinished == false}">
+              <div class="mb-3">
+                <label for="status" class="form-label">Alterar Status</label>
+                <select id="status" class="form-control" th:field="*{status}" th:disabled="${readOnly}">
+                  <option value="ABERTA">Aberta</option>
+                  <option value="ENTREVISTA">Entrevista</option>
+                  <option value="NÃO SELECIONADO">Não Selecionado</option>
+                </select>
+                <div class="invalid-feedback">
+                  <span th:errors="*{status}"></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="observacao" class="form-label">Observação</label>
+                <textarea
+                  id="observacao"
+                  class="form-control"
+                  th:field="*{statusDescription}"
+                  rows="3"
+                  th:readonly="${readOnly}"
+                ></textarea>
+                <div class="invalid-feedback">
+                  <span th:errors="*{statusDescription}"></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="entrevistaData" class="form-label">
+                  Data da Entrevista
+                </label>
+                <input
+                  type="datetime-local"
+                  id="entrevistaData"
+                  class="form-control"
+                  th:field="*{entrevistaData}"
+                  th:readonly="${readOnly}"
+                />
+                <div class="invalid-feedback">
+                  <span th:errors="*{entrevistaData}"></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="entrevistaLink" class="form-label">
+                  Link da Entrevista
+                </label>
+                <input
+                  type="url"
+                  id="entrevistaLink"
+                  class="form-control"
+                  th:field="*{entrevistaLink}"
+                  th:readonly="${readOnly}"
+                />
+                <div class="invalid-feedback">
+                  <span th:errors="*{entrevistaLink}"></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{vaga.id}" />
+                <input type="hidden" th:field="*{profissional.id}" />
+                <button type="submit" class="btn btn-primary">
+                  Atualizar Status
+                </button>
+              </div>
+            </div>
+            <div th:if="${!subscriptionFinished}">
+              <span class="text-warning">
+                Só é possível alterar o status da candidatura se o periodo de
+                inscrição tiver terminado.
+              </span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

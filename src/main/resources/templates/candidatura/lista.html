@@ -1,39 +1,71 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
-  <head> </head>
+  <head></head>
 
   <body>
     <div layout:fragment="corpo">
       <div class="container mt-4">
         <div th:replace="~{fragments/alert}"></div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">ID Profissonal</th>
-              <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">ID Vaga</th>
-              <th scope="col">Vaga</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="candidatura : ${candidaturas}">
-              <th scope="row" th:text="${candidatura.id}"></th>
-              <td th:text="${candidatura.profissional.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="col-2"></td>
-              <td th:text="${candidatura.vaga.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="col-1"></td>
-              <td th:text="${candidatura.vaga.titulo}"></td>
-              <td th:text="${candidatura.status}"></td>
-              <td>
-                <a
-                  class="btn btn-primary btn-sm"
-                  th:href="@{/{cid}(cid=${candidatura.id})}"
-                  >Visualizar</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <h3 class="text-center mb-4">Lista de Candidaturas</h3>
+        <div>
+          <div class="text-left">
+            <div class="row pb-2 border-bottom fw-bold">
+              <div class="col">ID</div>
+              <div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+                ID Profissional
+              </div>
+              <div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+                ID Vaga
+              </div>
+              <div class="col">Vaga</div>
+              <div class="col">Status</div>
+            </div>
+            <div th:each="candidatura : ${candidaturas}">
+              <div class="row py-2">
+                <div class="col" th:text="${candidatura.id}"></div>
+                <div
+                  class="col"
+                  th:text="${candidatura.profissional.id}"
+                  sec:authorize="hasRole('ROLE_ADMIN')"
+                ></div>
+                <div
+                  class="col"
+                  th:text="${candidatura.vaga.id}"
+                  sec:authorize="hasRole('ROLE_ADMIN')"
+                ></div>
+                <div class="col" th:text="${candidatura.vaga.titulo}"></div>
+                <div class="col" th:text="${candidatura.status}"></div>
+              </div>
+              <div
+                class="row p-4 bg-light-subtle"
+                th:if="${candidatura.status == 'ENTREVISTA'}"
+              >
+                <div
+                  class="mb-2"
+                  th:text="${candidatura.statusDescription}"
+                ></div>
+                <div class="mb-2">
+                  <strong>
+                    Data da entrevista:
+                  </strong>
+                  <span
+                    th:text="${#temporals.format(candidatura.entrevistaData, 'dd/MM/yyyy HH:mm')}"
+                  ></span>
+                </div>
+                <div>
+                  <a
+                    class="btn btn-primary"
+                    th:href="${candidatura.entrevistaLink}"
+                    target="_blank"
+                  >
+                    Link para a entrevista
+                  </a>
+                </div>
+              </div>
+              <div class="row border-bottom"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
