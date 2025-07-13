@@ -49,6 +49,7 @@ O projeto segue o padrão de arquitetura Modelo-Visão-Controlador (MVC).
 ##### Front-end (Lado Cliente):
 - Javascript
 - CSS
+- Bootstrap
 
 ## Ambiente de Desenvolvimento:
 - Build e Deploy: Obrigatoriamente com *Apache Maven*.
