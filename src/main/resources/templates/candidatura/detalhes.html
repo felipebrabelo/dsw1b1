@@ -36,7 +36,7 @@
           </div>
           <div class="mt-3" th:if="*{curriculoPath}">
             <a
-              th:href="@{*{curriculoPath}}"
+              th:href="@{/candidaturas/curriculo/{id}(id=${candidatura.id})}"
               target="_blank"
               class="btn btn-primary"
             >
