@@ -27,11 +27,13 @@ public class ProfissionalRestController {
 	// Cria um novo profissional [Create - CRUD]
 	@PostMapping
 	public ResponseEntity<Profissional> cadastrarProfissional(@Valid @RequestBody Profissional profissional) {
+		System.out.println("Cadastro de profissional: " + profissional);
+		System.out.println("_______");
 		// Criptografa a senha antes de salvar
 		profissional.setSenha(passwordEncoder.encode(profissional.getSenha()));
 		// Definir o perfil e ativar o usuário
-		profissional.setRole("ROLE_PROFISSIONAL");
-		profissional.setEnabled(true);
+		//profissional.setRole("ROLE_PROFISSIONAL");
+		//profissional.setEnabled(true);
 
 		profissionalService.salvar(profissional);
 

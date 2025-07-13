@@ -12,6 +12,7 @@ import br.ufscar.dc.dsw.domain.Vaga;
 import br.ufscar.dc.dsw.security.UsuarioDetails; // Importe sua classe UserDetails
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 import br.ufscar.dc.dsw.service.spec.IVagaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/vagas")
@@ -50,7 +51,7 @@ public class VagaRestController {
 
     // Retorna a lista de todas as vagas de uma empresa específica.
     // Requisito R6.
-    @GetMapping("/empresas/{Id}")
+    @GetMapping("/empresas/{id}")
     public ResponseEntity<List<Vaga>> buscarVagasPorEmpresa(@PathVariable Long id) {
         List<Vaga> vagas = vagaService.buscarAbertasDaEmpresa(id); //
         if (vagas.isEmpty()) {
@@ -63,19 +64,10 @@ public class VagaRestController {
     // Requisito R3.
     @PostMapping
     public ResponseEntity<Vaga> cadastrar(@RequestBody Vaga vaga) {
-        // Pega o usuário logado a partir do contexto de segurança
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UsuarioDetails userDetails = (UsuarioDetails) authentication.getPrincipal();
-
-        // Busca a entidade Empresa correspondente ao usuário logado
-        Empresa empresaLogada = empresaService.buscarPorId(userDetails.getId());
-        if (empresaLogada == null) {
-            // Isso não deveria acontecer se o token for válido, mas é uma boa verificação
-            return ResponseEntity.status(403).build(); // Forbidden
-        }
-
+        Long id = vaga.getEmpresa().getId();
+        Empresa emp = empresaService.buscarPorId(id);
         // Associa a vaga à empresa correta e salva
-        vaga.setEmpresa(empresaLogada);
+        vaga.setEmpresa(emp);
         vagaService.salvar(vaga);
 
         return ResponseEntity.ok(vaga);

@@ -82,6 +82,7 @@ public class EmpresaRestController {
     //Retorna a lista de todas as empresas da cidade de nome = {nome}
     @GetMapping("/cidades/{nome}")
     public ResponseEntity<List<Empresa>> buscarPorCidade(@PathVariable String nome) {
+        System.out.println("Buscando empresas na cidade: " + nome);
         List<Empresa> empresas = empresaService.buscarPorCidade(nome);
         if (empresas.isEmpty()) {
             return ResponseEntity.noContent().build();
