@@ -1,5 +1,9 @@
 package br.ufscar.dc.dsw.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,9 +14,9 @@ import jakarta.validation.constraints.Size;
 @Inheritance(strategy = InheritanceType.JOINED) // Estratégia de herança
 public class Usuario extends AbstractEntity<Long> {
     @NotBlank(message = "O nome é obrigatório.")
-	@Size(max = 100)
-	@Column(nullable = false, length = 100)
-	private String nome;
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
+    private String nome;
 
     @NotBlank(message = "O e-mail é obrigatório.")
     @Email(message = "Formato de e-mail inválido.")
@@ -21,6 +25,8 @@ public class Usuario extends AbstractEntity<Long> {
 
     @NotBlank
     @Column(nullable = false, length = 64)
+    // @JsonIgnore // ignorar completamente este campo ao criar a resposta JSON
+    @JsonProperty(access = Access.WRITE_ONLY) // Permite receber a senha, mas não a envia de volta
     private String senha;
 
     @NotBlank
