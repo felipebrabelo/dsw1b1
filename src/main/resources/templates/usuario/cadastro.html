@@ -15,7 +15,7 @@
       <div class="">
         <p th:if="${type == 'PROFISSIONAL'}">
           Gostaria de anunciar uma vaga?
-          <a th:href="@{/cadastrar/empresa}" class="link-primary">
+          <a th:href="@{/cadastrar/empresas}" class="link-primary">
             Clique aqui
           </a>
           e cadastre sua empresa.
@@ -27,7 +27,7 @@
         </p>
       </div>
       <form
-        th:action="${type == 'PROFISSIONAL'} ? @{/salvar} : @{/salvar/empresa}"
+        th:action="${type == 'PROFISSIONAL'} ? @{/salvar} : @{/salvar/empresas}"
         method="post"
         th:object="${usuario}"
         class="w-50"

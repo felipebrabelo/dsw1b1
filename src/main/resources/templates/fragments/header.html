@@ -56,7 +56,7 @@
                   <li>
                     <a
                       class="dropdown-item"
-                      th:href="@{/empresa/vagas}"
+                      th:href="@{/empresas/vagas}"
                       sec:authorize="!hasAnyRole('ROLE_ADMIN')"
                     >
                       Minhas vagas
@@ -113,12 +113,12 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item" th:href="@{/empresa}">
+                    <a class="dropdown-item" th:href="@{/empresas}">
                       Listar empresas
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" th:href="@{/empresa/cadastrar}">
+                    <a class="dropdown-item" th:href="@{/empresas/cadastrar}">
                       Criar nova empresa
                     </a>
                   </li>

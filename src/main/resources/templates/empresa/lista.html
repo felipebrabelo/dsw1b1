@@ -38,12 +38,12 @@
               <td>
                 <a
                   class="btn btn-primary btn-sm"
-                  th:href="@{/empresa/editar/{id}(id=${empresa.id})}"
+                  th:href="@{/empresas/editar/{id}(id=${empresa.id})}"
                 >
                   Editar
                 </a>
                 <form
-                  th:action="@{/empresa/excluir/{id}(id=${empresa.id})}"
+                  th:action="@{/empresas/excluir/{id}(id=${empresa.id})}"
                   method="post"
                   style="display: inline-block"
                 >

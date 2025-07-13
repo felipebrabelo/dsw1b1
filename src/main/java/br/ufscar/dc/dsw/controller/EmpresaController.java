@@ -23,7 +23,7 @@ import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/empresa")
+@RequestMapping("/empresas")
 public class EmpresaController {
   @Autowired
   private IEmpresaService empresaService;
