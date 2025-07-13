@@ -49,6 +49,7 @@ O projeto segue o padrão de arquitetura Modelo-Visão-Controlador (MVC).
 ##### Front-end (Lado Cliente):
 - Javascript
 - CSS
+- Bootstrap
 
 ## Ambiente de Desenvolvimento:
 - Build e Deploy: Obrigatoriamente com *Apache Maven*.
@@ -92,5 +93,5 @@ A aplicação estará disponível em http://localhost:8080.
 
 ## Equipe
 [João Vitor Azevedo](https://github.com/JoaoVitorAzevedo)
-Felipe
-Fábricio
+[Fábricio Rodrigues](https://github.com/devfabri)
+
