@@ -12,6 +12,7 @@ import br.ufscar.dc.dsw.service.impl.VagaService;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,9 +41,18 @@ public class VagaController {
   private IVagaDAO vagaRepository;
 
   private Usuario getUsuario() {
-    UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-    return usuarioDetails.getUsuario();
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated()) {
+        return null;
+    }
+
+    Object principal = auth.getPrincipal();
+
+    if (principal instanceof UsuarioDetails) {
+        return ((UsuarioDetails) principal).getUsuario();
+    }
+
+    return null;
   }
 
   private Empresa getEmpresa() {
@@ -61,9 +71,9 @@ public class VagaController {
     return null;
   }
 
-  @GetMapping("/minhas-vagas")
-  public String minhasVagas(ModelMap model) {
-    List<Vaga> vagas = vagaService.buscaPorEmpresaId(this.getEmpresa().getId());
+  @GetMapping("/empresa/{id}")
+  public String minhasVagas(@PathVariable Long id,  ModelMap model) {
+    List<Vaga> vagas = vagaService.buscaPorEmpresaId(id);
     model.addAttribute("vagas", vagas);
 
     return "vaga/list";
@@ -126,7 +136,7 @@ public class VagaController {
   }
 
   @GetMapping("/{id}")
-  public String detailsVaga(@PathVariable("id") Long id, Candidatura candidatura, ModelMap model) {
+  public String detailsVaga(@PathVariable("id") Long id, ModelMap model) {
     // Usa o método otimizado para buscar a vaga com os dados da empresa.
     Vaga vaga = vagaService.buscarPorId(id);
 
@@ -135,9 +145,26 @@ public class VagaController {
       return "redirect:/vagas";
     }
 
+    // Verifica se o usuário é dono da vaga ou se é um administrador.
+    model.addAttribute("isOwner", isOwner(vaga));
+
+    // Verifica se o usuário é um candidato à vaga.
+    model.addAttribute("isCandidato", isCandidato(vaga));
+
     // Verifica se a vaga ainda é válida no momento do acesso.
-    if (vaga.getDataLimiteInscricao().isBefore(LocalDate.now())) {
-      model.addAttribute("vagaExpirada", true);
+    boolean vagaExpirada = vaga.getDataLimiteInscricao().isBefore(LocalDate.now());
+    model.addAttribute("vagaExpirada", vagaExpirada);
+    
+
+    // Prepara dados para candidatura
+    Candidatura candidatura = new Candidatura();
+    Profissional profissional = getProfissional();
+    if (profissional != null) {
+      candidatura.setProfissional(profissional);
+      candidatura.setVaga(vaga);
+      model.addAttribute("candidatura", candidatura);
+    } else {
+      model.addAttribute("candidatura", null);
     }
 
     model.addAttribute("vaga", vaga);
@@ -146,9 +173,37 @@ public class VagaController {
 
   @GetMapping("{id}/candidaturas")
   public String candidaturasVaga(@PathVariable("id") Long id, ModelMap model) {
+    // Valida se o usuario é dono da vaga ou um administrador.
+    Vaga vaga = vagaService.buscarPorId(id);
+    if (vaga == null || !isOwner(vaga)) {
+      return "redirect:/vagas";
+    }
 
     List<Candidatura> candidaturas = candidaturaService.buscarPorVagaId(id);
     model.addAttribute("candidaturas", candidaturas);
     return "vaga/candidaturas";
+  }
+
+  private boolean isCandidato(Vaga vaga) {
+    Profissional profissional = this.getProfissional();
+    if (profissional == null) {
+      return false;
+    }
+
+    return candidaturaService.isCandidateByVaga(vaga.getId(), profissional.getId());
+  }
+
+  private boolean isOwner(Vaga vaga) {
+    Usuario usuario = this.getUsuario();
+    if (usuario == null) {
+      return false;
+    }
+    if (usuario.getRole().equals("ROLE_ADMIN")) {
+      return true;
+    }
+    if (vaga.getEmpresa().getId().equals(usuario.getId())) {
+      return true;
+    }
+    return false;
   }
 }

@@ -26,11 +26,23 @@
             <a class="navbar-brand" th:href="@{/}">VaiTrampar</a>
           </div>
           <div class="col">
-            <ul class="navbar-nav justify-content-center" sec:authorize="isAuthenticated()">
+            <ul
+              class="navbar-nav justify-content-center"
+              sec:authorize="isAuthenticated()"
+            >
               <li class="nav-item" sec:authorize="!hasAnyRole('ROLE_EMPRESA')">
-                <a class="nav-link" aria-current="page" th:href="@{/candidaturas}">Candidaturas</a>
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  th:href="@{/candidaturas}"
+                >
+                  Candidaturas
+                </a>
               </li>
-              <li class="nav-item dropdown">
+              <li
+                class="nav-item dropdown"
+                sec:authorize="!hasAnyRole('ROLE_PROFISSIONAL')"
+              >
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -41,11 +53,26 @@
                   Vagas
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="@{/}">Minhas vagas</a></li>
-                  <li><a class="dropdown-item" th:href="@{/vagas/cadastrar}">Criar nova vaga</a></li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      th:href="@{/empresa/vagas}"
+                      sec:authorize="!hasAnyRole('ROLE_ADMIN')"
+                    >
+                      Minhas vagas
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/vagas/cadastrar}">
+                      Criar nova vaga
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown">
+              <li
+                class="nav-item dropdown"
+                sec:authorize="hasRole('ROLE_ADMIN')"
+              >
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -56,13 +83,25 @@
                   Profissionais
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" th:href="@{/profissionais}">Listar profissionais</a></li>
                   <li>
-                    <a class="dropdown-item" th:href="@{/profissionais/cadastrar}">Criar novo profissional</a>
+                    <a class="dropdown-item" th:href="@{/profissionais}">
+                      Listar profissionais
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      th:href="@{/profissionais/cadastrar}"
+                    >
+                      Criar novo profissional
+                    </a>
                   </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown">
+              <li
+                class="nav-item dropdown"
+                sec:authorize="hasRole('ROLE_ADMIN')"
+              >
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -73,9 +112,15 @@
                   Empresas
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" th:href="@{/empresas}">Listar empresas</a></li>
                   <li>
-                    <a class="dropdown-item" th:href="@{/empresas/cadastrar}">Criar nova empresa</a>
+                    <a class="dropdown-item" th:href="@{/empresa}">
+                      Listar empresas
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/empresa/cadastrar}">
+                      Criar nova empresa
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -89,7 +134,9 @@
               <a th:href="@{/login}" class="btn btn-primary me-2">
                 Fazer login
               </a>
-              <a class="btn btn-outline-primary" th:href="@{/cadastrar}"> Criar uma conta </a>
+              <a class="btn btn-outline-primary" th:href="@{/cadastrar}">
+                Criar uma conta
+              </a>
             </div>
             <div
               sec:authorize="isAuthenticated()"
