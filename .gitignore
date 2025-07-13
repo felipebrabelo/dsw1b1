@@ -51,3 +51,7 @@ buildNumber.properties
 .classpath
 #Senha do banco de dados:
 /src/main/resources/application.properties
+
+
+##não subir pq ainda não funciona
+src/main/java/br/ufscar/dc/dsw/controller/REST/

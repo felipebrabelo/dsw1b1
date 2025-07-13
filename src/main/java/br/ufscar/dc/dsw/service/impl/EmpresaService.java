@@ -13,6 +13,7 @@ import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 @Service
 @Transactional(readOnly = false)
 public class EmpresaService implements IEmpresaService {
+
   @Autowired
   IEmpresaDAO dao;
 
@@ -33,5 +34,18 @@ public class EmpresaService implements IEmpresaService {
   public List<Empresa> buscarTodos() {
     return dao.findAll();
   }
+
+  @Transactional(readOnly = true)
+  public List<Empresa> buscarPorNome(String nome) {
+    return dao.findByNome(nome);
+  }
+
+  @Override
+  public List<Empresa> buscarPorCidade(String nome) {
+    return dao.findByCidade(nome);
+  }
+
+  
   
 }
+

@@ -1,13 +1,16 @@
 package br.ufscar.dc.dsw.domain;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -26,13 +29,37 @@ public class Candidatura extends AbstractEntity<Long> {
 
   @NotNull(message = "O status da candidatura é obrigatório.")
   @Column(nullable = false, length = 20)
-  @ColumnDefault("PENDENTE")
-  private String status = "PENDENTE"; // Status da candidatura, padrão é "PENDENTE"
+  @ColumnDefault("ABERTA")
+  private String status = "ABERTA"; // Status da candidatura, padrão é "PENDENTE"
 
-  public Candidatura() {}
+  @Column(columnDefinition = "TEXT")
+  private String statusDescription; // Descrição do status, opcional
+
+  @Column(length = 255)
+  private String entrevistaLink;
+
+  @Future(message = "A data deve ser no futuro.")
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+  @Column(name = "entrevista_data")
+  private LocalDateTime entrevistaData;
+
+  @Column(name = "curriculo_path")
+  private String curriculoPath;
+
+  public Candidatura() {
+  }
+
   public Candidatura(Profissional profissional, Vaga vaga) {
     this.profissional = profissional;
     this.vaga = vaga;
+  }
+
+  public String getCurriculoPath() {
+    return curriculoPath;
+  }
+
+  public void setCurriculoPath(String curriculoPath) {
+    this.curriculoPath = curriculoPath;
   }
 
   public Usuario getProfissional() {
@@ -45,6 +72,30 @@ public class Candidatura extends AbstractEntity<Long> {
 
   public Vaga getVaga() {
     return vaga;
+  }
+
+  public String getStatusDescription() {
+    return statusDescription;
+  }
+
+  public void setStatusDescription(String statusDescription) {
+    this.statusDescription = statusDescription;
+  }
+
+  public String getEntrevistaLink() {
+    return entrevistaLink;
+  }
+
+  public void setEntrevistaLink(String entrevistaLink) {
+    this.entrevistaLink = entrevistaLink;
+  }
+
+  public LocalDateTime getEntrevistaData() {
+    return entrevistaData;
+  }
+
+  public void setEntrevistaData(LocalDateTime entrevistaData) {
+    this.entrevistaData = entrevistaData;
   }
 
   public void setVaga(Vaga vaga) {

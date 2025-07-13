@@ -13,6 +13,7 @@ import br.ufscar.dc.dsw.service.spec.IProfissionalService;
 @Service
 @Transactional(readOnly = false)
 public class ProfissionalService implements IProfissionalService {
+
   @Autowired
   IProfissionalDAO dao;
 
@@ -33,5 +34,8 @@ public class ProfissionalService implements IProfissionalService {
   public List<Profissional> buscarTodos() {
     return dao.findAll();
   }
+  
+
+
   
 }
