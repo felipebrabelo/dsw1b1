@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 Livraria.db
+vaitrampar_db.db
 
 ### STS ###
 .apt_generated

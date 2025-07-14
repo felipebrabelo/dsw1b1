@@ -38,6 +38,19 @@ public class VaiTramparApplication {
 			IProfissionalDAO profissionalDAO,
 			ICandidaturaDAO candidaturaDAO) {
 		return (args) -> {
+
+
+			// Criando empresa sem vagas(pode ser apagada na interface)
+			Empresa fantasma = new Empresa();
+			fantasma.setEmail("va_zio@gmail.com");
+			fantasma.setSenha(encoder.encode("123456"));	
+			fantasma.setCnpj("50.456.477/0001-54");
+			fantasma.setNome("Vazio");
+			fantasma.setDescricao("Empresa sem vagas");
+			fantasma.setCidade("Triângulo das Bermudas");
+			empresaDAO.save(fantasma);
+			
+				
 			// --- Criando e Salvando Admin ---
 			Usuario admin = new Usuario();
 			admin.setEmail("admin@admin.com");
