@@ -118,8 +118,8 @@ Execute o comando a seguir na raiz do projeto para baixar as dependências e com
 - /domain
     - Entidades JPA(Vaga, Empresa, Profissional) exceto Candidatura
 - /dao
-    - Primeiros Repositórios JPA
-- /service - Interfaces iniciais do T1, exceto candidatura
+    - Repositórios JPA
+- /service - Interfaces, exceto ICandidaturaService
 
 
 ## Fabrício
