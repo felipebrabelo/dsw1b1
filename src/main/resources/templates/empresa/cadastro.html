@@ -7,7 +7,7 @@
       class="container d-flex flex-column align-items-center mt-4"
       layout:fragment="corpo"
     >
-      <h3>Cadastrar</h3>
+      <h3 th:text="#{empresa.create.label}">Cadastrar Empresa</h3>
       <form
         th:action="${empresa.id == null} ? @{/empresas/salvar} : @{/empresas/editar}"
         method="post"
@@ -16,7 +16,7 @@
       >
         <div class="row mb-3">
           <div class="col">
-            <label for="nome" class="form-label">Nome</label>
+            <label for="nome" class="form-label" th:text="#{empresa.nome}">Nome</label>
             <input
               type="text"
               class="form-control"
@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="col">
-            <label for="cnpj" class="form-label">CNPJ</label>
+            <label for="cnpj" class="form-label" th:text="#{empresa.cnpj}">CNPJ</label>
             <input
               type="text"
               class="form-control"
@@ -46,7 +46,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="descricao" class="form-label">Descrição</label>
+            <label for="descricao" class="form-label" th:text="#{empresa.descricao}">Descrição</label>
             <textarea
               class="form-control"
               id="descricao"
@@ -61,7 +61,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label" th:text="#{login.email}">Email</label>
             <input
               type="email"
               class="form-control"
@@ -77,7 +77,7 @@
         </div>
         <div class="row mb-3">
           <div th:if="${empresa.id == null}" class="col">
-            <label for="senha" class="form-label">Senha</label>
+            <label for="senha" class="form-label" th:text="#{login.senha}">Senha</label>
             <input
               type="password"
               class="form-control"
@@ -91,7 +91,7 @@
             </div>
           </div>
           <div th:unless="${empresa.id == null}" class="col">
-            <label for="senha" class="form-label">Nova senha</label>
+            <label for="senha" class="form-label" th:text="#{empresa.nova.senha}">Nova senha</label>
             <input
               type="password"
               class="form-control"
@@ -108,7 +108,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="cidade" class="form-label">Cidade</label>
+            <label for="cidade" class="form-label" th:text="#{empresa.cidade}">Cidade</label>
             <input
               type="text"
               class="form-control"
@@ -123,7 +123,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="enabled" class="form-check-label">Ativo</label>
+            <label for="enabled" class="form-check-label" th:text="#{empresa.ativo}">Ativo</label>
             <input
               type="checkbox"
               class="form-check-input"
@@ -140,7 +140,7 @@
         <div class="d-flex justify-content-center align-items-center pt-3">
           <button class="btn btn-primary" type="submit">
             <span
-              th:text="${empresa.id == null} ? 'Cadastrar' : 'Atualizar'"
+              th:text="${empresa.id == null} ? #{empresa.criar} : #{empresa.atualizar}"
             ></span>
           </button>
         </div>

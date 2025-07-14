@@ -17,9 +17,9 @@ import java.time.LocalDate;
 @Table(name = "Profissional")
 public class Profissional extends Usuario {
 
-    @NotBlank(message = "O CPF é obrigatório.")
-    @CPF(message = "CPF inválido.")
-    @Column(unique = true, nullable = false, length = 14) // Formato com máscara: XXX.XXX.XXX-XX
+    @NotBlank(message = "{profissional.cpf.notblank}")
+    @CPF(message = "{profissional.cpf.invalid}")
+    @Column(unique = true, nullable = false, length = 14)
     private String cpf;
 
     @Column
@@ -28,8 +28,8 @@ public class Profissional extends Usuario {
     @Column
     private String sexo;
 
-    @NotNull(message = "A data de nascimento é obrigatória.")
-    @Past(message = "A data de nascimento deve ser uma data no passado.")
+    @NotNull(message = "{profissional.dataNascimento.notnull}")
+    @Past(message = "{profissional.dataNascimento.past}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;

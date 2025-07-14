@@ -9,14 +9,14 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">CNPJ</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Email</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Cidade</th>
-              <th scope="col">Ativo</th>
-              <th scope="col">Ações</th>
+              <th scope="col" th:text="#{empresa.lista.id}">ID</th>
+              <th scope="col" th:text="#{empresa.cnpj}">CNPJ</th>
+              <th scope="col" th:text="#{empresa.nome}">Nome</th>
+              <th scope="col" th:text="#{login.email}">Email</th>
+              <th scope="col" th:text="#{empresa.descricao}">Descrição</th>
+              <th scope="col" th:text="#{empresa.cidade}">Cidade</th>
+              <th scope="col" th:text="#{empresa.status}">Status</th>
+              <th scope="col" th:text="#{empresa.acoes}">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +29,7 @@
               <td th:text="${empresa.cidade}"></td>
               <td>
                 <span
-                  th:text="${empresa.enabled ? 'Ativo' : 'Inativo'}"
+                  th:text="${empresa.enabled} ? #{empresa.ativo} : #{empresa.inativo}"
                   class="badge"
                   th:classappend="${empresa.enabled ? 'bg-success' : 'bg-secondary'}"
                 ></span>
@@ -39,6 +39,7 @@
                 <a
                   class="btn btn-primary btn-sm"
                   th:href="@{/empresas/editar/{id}(id=${empresa.id})}"
+                  th:text="#{empresa.editar}"
                 >
                   Editar
                 </a>
@@ -50,7 +51,7 @@
                   <input
                     type="submit"
                     class="btn btn-danger btn-sm"
-                    value="Excluir"
+                    th:value="#{empresa.excluir}"
                   />
                 </form>
               </td>

@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -38,18 +39,16 @@ public class VagaController {
   @Autowired
   private CandidaturaService candidaturaService;
 
-  
-
   private Usuario getUsuario() {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     if (auth == null || !auth.isAuthenticated()) {
-        return null;
+      return null;
     }
 
     Object principal = auth.getPrincipal();
 
     if (principal instanceof UsuarioDetails) {
-        return ((UsuarioDetails) principal).getUsuario();
+      return ((UsuarioDetails) principal).getUsuario();
     }
 
     return null;
@@ -69,14 +68,6 @@ public class VagaController {
       return (Profissional) usuario;
     }
     return null;
-  }
-
-  @GetMapping("/empresa/{id}")
-  public String minhasVagas(@PathVariable Long id,  ModelMap model) {
-    List<Vaga> vagas = vagaService.buscaPorEmpresaId(id);
-    model.addAttribute("vagas", vagas);
-
-    return "vaga/list";
   }
 
   @GetMapping("/cadastrar")
@@ -102,16 +93,12 @@ public class VagaController {
 
   @GetMapping
   public String listVagas(@RequestParam(name = "cargo", required = false) String cargo,
-      // ALTERAÇÃO 1: Mapeia o parâmetro "local" da URL para a variável "cidade"
       @RequestParam(name = "local", required = false) String cidade,
       ModelMap model) {
-        List<Vaga> vagas = vagaService.buscarVagasAbertasComFiltros(cargo, cidade);
-        
-       
+    List<Vaga> vagas = vagaService.buscarVagasAbertasComFiltros(cargo, cidade);
+
     model.addAttribute("vagas", vagas);
     model.addAttribute("cargo", cargo);
-    // ALTERAÇÃO 2: Envia o valor de volta para a view com o nome "local" para
-    // preencher o campo
     model.addAttribute("local", cidade);
 
     return "vaga/list";
@@ -136,7 +123,6 @@ public class VagaController {
     // Verifica se a vaga ainda é válida no momento do acesso.
     boolean vagaExpirada = vaga.getDataLimiteInscricao().isBefore(LocalDate.now());
     model.addAttribute("vagaExpirada", vagaExpirada);
-    
 
     // Prepara dados para candidatura
     Candidatura candidatura = new Candidatura();
@@ -153,7 +139,7 @@ public class VagaController {
     return "vaga/details";
   }
 
-  @GetMapping("{id}/candidaturas")
+  @GetMapping("candidaturas/{id}")
   public String candidaturasVaga(@PathVariable("id") Long id, ModelMap model) {
     // Valida se o usuario é dono da vaga ou um administrador.
     Vaga vaga = vagaService.buscarPorId(id);
@@ -166,7 +152,7 @@ public class VagaController {
     return "vaga/candidaturas";
   }
 
-  @GetMapping("{id}/excluir")
+  @GetMapping("excluir/{id}")
   public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
     if (!candidaturaService.buscarPorVagaId(id).isEmpty()) {
       attr.addFlashAttribute("fail", "vaga.delete.fail");

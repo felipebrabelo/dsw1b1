@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}"
->
+<html layout:decorate="~{layout}">
   <head>
-    <title th:text="#{login.message}"></title>
+    <title th:text="#{login.message}">Página de Login</title>
   </head>
   <body>
     <div layout:fragment="corpo" class="container d-flex flex-column align-items-center mt-4">
       <div th:replace="~{fragments/alert}"></div>
       <h3 class="text-center mb-4">
-        <span th:text="#{login.message}"></span>
+        <span th:text="#{login.message}">Página de Login</span>
       </h3>
       <form th:action="@{/login}" method="post" class="w-25">
         <div th:if="${param.error}">
           <div class="alert alert-danger">
-            <span th:text="#{login.error}"></span>
+            <span th:text="#{login.error}">Nome de usuário ou senha inválida</span>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="email" th:text="#{login.email}" class="form-label"></label>
+          <label for="email" th:text="#{login.email}" class="form-label">Email</label>
           <input
             type="text"
             id="email"
@@ -28,7 +27,7 @@
           />
         </div>
         <div class="row mb-3">
-          <label for="senha" th:text="#{login.senha}" class="form-label"></label>
+          <label for="senha" th:text="#{login.senha}" class="form-label">Senha</label>
           <input
             type="password"
             id="senha"
@@ -44,6 +43,7 @@
             id="login-submit"
             class="form-control btn btn-primary"
             th:value="#{login.button}"
+            value="Entrar"
           />
         </div>
       </form>

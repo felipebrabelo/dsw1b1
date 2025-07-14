@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
   <head>
-    <title>Resultados da Busca de Vagas</title>
+    <title th:text="#{busca.vagas.titulo}">Resultados da Busca de Vagas</title>
   </head>
 
   <body>
@@ -11,7 +11,7 @@
       </div>
 
       <div th:if="${#lists.isEmpty(vagas)}" class="mt-4">
-        <p>Nenhuma vaga encontrada com os critérios informados.</p>
+        <p th:text="#{busca.vagas.nenhuma}">Nenhuma vaga encontrada com os critérios informados.</p>
       </div>
 
       <div
@@ -30,13 +30,13 @@
             th:text="${vaga.empresa.cidade}"
           ></div>
           <div>
-            Salário: R$
+            <span th:text="#{vaga.salario}">Salário:</span> R$
             <span
               th:text="${#numbers.formatDecimal(vaga.remuneracao, 1, 'POINT', 2, 'COMMA')}"
             ></span>
           </div>
           <div class="vaga-card__deadline">
-            Inscrições até:
+            <span th:text="#{vaga.inscricoes.ate}">Inscrições até:</span>
             <span
               th:text="${#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
             ></span>

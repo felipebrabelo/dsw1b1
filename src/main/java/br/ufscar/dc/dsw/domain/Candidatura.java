@@ -17,20 +17,20 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "candidaturas")
 public class Candidatura extends AbstractEntity<Long> {
 
-  @NotNull(message = "O usuário é obrigatório.")
+  @NotNull(message = "{candidatura.profissional.notnull}")
   @ManyToOne
   @JoinColumn(name = "usuario_id", nullable = false)
   private Profissional profissional;
 
-  @NotNull(message = "A vaga é obrigatória.")
+  @NotNull(message = "{candidatura.vaga.notnull}")
   @ManyToOne
   @JoinColumn(name = "vaga_id", nullable = false)
   private Vaga vaga;
 
-  @NotNull(message = "O status da candidatura é obrigatório.")
+  @NotNull(message = "{candidatura.status.notnull}")
   @Column(nullable = false, length = 20)
   @ColumnDefault("ABERTA")
-  private String status = "ABERTA"; // Status da candidatura, padrão é "PENDENTE"
+  private String status = "ABERTA"; // Status da candidatura, padrão é "ABERTA"
 
   @Column(columnDefinition = "TEXT")
   private String statusDescription; // Descrição do status, opcional
@@ -38,7 +38,7 @@ public class Candidatura extends AbstractEntity<Long> {
   @Column(length = 255)
   private String entrevistaLink;
 
-  @Future(message = "A data deve ser no futuro.")
+  @Future(message = "{candidatura.entrevistaData.future}")
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
   @Column(name = "entrevista_data")
   private LocalDateTime entrevistaData;

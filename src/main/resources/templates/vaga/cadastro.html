@@ -7,7 +7,7 @@
       class="container d-flex flex-column align-items-center mt-4"
       layout:fragment="corpo"
     >
-      <h3>Cadastrar Vaga</h3>
+      <h3 th:text="#{vaga.create.label}">Cadastrar Vaga</h3>
       <form
         th:action="${vaga.id == null} ? @{/vagas/salvar} : @{/vagas/editar}"
         method="post"
@@ -19,7 +19,7 @@
           th:classappend="${vaga.empresa == null} ? '' : 'd-none'"
         >
           <div class="col">
-            <label for="empresa" class="form-label">ID da empresa</label>
+            <label for="empresa" class="form-label" th:text="#{vaga.empresa.id}">ID da empresa</label>
             <input
               type="text"
               class="form-control"
@@ -31,7 +31,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="titulo" class="form-label">Título</label>
+            <label for="titulo" class="form-label" th:text="#{vaga.titulo}">Título</label>
             <input
               type="text"
               class="form-control"
@@ -46,7 +46,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="descricao" class="form-label">Descrição</label>
+            <label for="descricao" class="form-label" th:text="#{vaga.descricao}">Descrição</label>
             <textarea
               class="form-control"
               id="descricao"
@@ -60,7 +60,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="remuneracao" class="form-label">Remuneração</label>
+            <label for="remuneracao" class="form-label" th:text="#{vaga.remuneracao}">Remuneração</label>
             <input
               type="text"
               class="form-control"
@@ -75,9 +75,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <label for="dataLimiteInscricao" class="form-label"
-              >Data limite de inscrição</label
-            >
+            <label for="dataLimiteInscricao" class="form-label" th:text="#{vaga.data.limite}">Data limite de inscrição</label>
             <input
               type="date"
               class="form-control"
@@ -90,13 +88,12 @@
             </div>
           </div>
         </div>
-        <!-- <input type="hidden" th:field="*{empresa}" id="empresa"> -->
         <input type="hidden" id="id" th:field="*{id}" />
 
         <div class="d-flex justify-content-center align-items-center pt-3">
           <button class="btn btn-primary" type="submit">
             <span
-              th:text="${vaga.id == null} ? 'Cadastrar' : 'Atualizar'"
+              th:text="${vaga.id == null} ? #{vaga.criar} : #{vaga.atualizar}"
             ></span>
           </button>
         </div>

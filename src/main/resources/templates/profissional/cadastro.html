@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
-  <head> </head>
+  <head></head>
 
   <body>
     <div
       class="container d-flex flex-column align-items-center mt-4"
       layout:fragment="corpo"
     >
-      <h3>Cadastrar</h3>
+      <h3 th:text="#{profissional.create.label}">Cadastrar Profissional</h3>
       <form
         th:action="${profissional.id == null} ? @{/profissionais/salvar} : @{/profissionais/editar}"
         method="post"
@@ -16,7 +16,13 @@
         <div class="w-100 mt-4">
           <div class="row mb-3">
             <div class="col">
-              <label for="nome" class="form-label">Nome</label>
+              <label
+                for="nome"
+                class="form-label"
+                th:text="#{profissional.nome}"
+              >
+                Nome
+              </label>
               <input
                 type="text"
                 class="form-control"
@@ -29,7 +35,9 @@
               </div>
             </div>
             <div class="col">
-              <label for="cpf" class="form-label">CPF</label>
+              <label for="cpf" class="form-label" th:text="#{profissional.cpf}">
+                CPF
+              </label>
               <input
                 type="text"
                 class="form-control"
@@ -46,7 +54,9 @@
           </div>
           <div class="row mb-3">
             <div class="col">
-              <label for="email" class="form-label">Email</label>
+              <label for="email" class="form-label" th:text="#{login.email}">
+                Email
+              </label>
               <input
                 type="email"
                 class="form-control"
@@ -62,7 +72,9 @@
           </div>
           <div class="row mb-3">
             <div th:if="${profissional.id == null}" class="col">
-              <label for="senha" class="form-label">Senha</label>
+              <label for="senha" class="form-label" th:text="#{login.senha}">
+                Senha
+              </label>
               <input
                 type="password"
                 class="form-control"
@@ -76,7 +88,13 @@
               </div>
             </div>
             <div th:unless="${profissional.id == null}" class="col">
-              <label for="senha" class="form-label">Nova senha</label>
+              <label
+                for="senha"
+                class="form-label"
+                th:text="#{profissional.nova.senha}"
+              >
+                Nova senha
+              </label>
               <input
                 type="password"
                 class="form-control"
@@ -91,17 +109,42 @@
               <input type="hidden" th:field="*{senha}" />
             </div>
             <div class="col">
-              <label for="sexo" class="form-label">Sexo</label>
+              <label
+                for="sexo"
+                class="form-label"
+                th:text="#{profissional.sexo}"
+              >
+                Sexo
+              </label>
               <select
                 class="form-select"
                 id="sexo"
                 th:field="*{sexo}"
                 th:classappend="${#fields.hasErrors('sexo')} ? 'is-invalid' : ''"
               >
-                <option value="" disabled selected>Selecione o sexo</option>
-                <option value="MASCULINO">Masculino</option>
-                <option value="FEMININO">Feminino</option>
-                <option value="OUTRO">Outro</option>
+                <option
+                  value=""
+                  disabled
+                  selected
+                  th:text="#{profissional.sexo.selecione}"
+                >
+                  Selecione o sexo
+                </option>
+                <option
+                  value="MASCULINO"
+                  th:text="#{profissional.sexo.masculino}"
+                >
+                  Masculino
+                </option>
+                <option
+                  value="FEMININO"
+                  th:text="#{profissional.sexo.feminino}"
+                >
+                  Feminino
+                </option>
+                <option value="OUTRO" th:text="#{profissional.sexo.outro}">
+                  Outro
+                </option>
               </select>
               <div class="invalid-feedback">
                 <span th:errors="*{sexo}"></span>
@@ -110,7 +153,13 @@
           </div>
           <div class="row mb-3">
             <div class="col">
-              <label for="telefone" class="form-label">Telefone</label>
+              <label
+                for="telefone"
+                class="form-label"
+                th:text="#{profissional.telefone}"
+              >
+                Telefone
+              </label>
               <input
                 type="text"
                 class="form-control"
@@ -123,9 +172,13 @@
               </div>
             </div>
             <div class="col">
-              <label for="dataNascimento" class="form-label"
-                >Data de nascimento</label
+              <label
+                for="dataNascimento"
+                class="form-label"
+                th:text="#{profissional.data.nascimento}"
               >
+                Data de nascimento
+              </label>
               <input
                 type="date"
                 class="form-control"
@@ -140,7 +193,13 @@
           </div>
           <div class="row mb-3">
             <div class="col">
-              <label for="enabled" class="form-check-label">Ativo</label>
+              <label
+                for="enabled"
+                class="form-check-label"
+                th:text="#{profissional.ativo}"
+              >
+                Ativo
+              </label>
               <input
                 type="checkbox"
                 class="form-check-input"
@@ -157,7 +216,7 @@
           <div class="d-flex justify-content-center align-items-center pt-3">
             <button class="btn btn-primary" type="submit">
               <span
-                th:text="${profissional.id == null} ? 'Cadastrar' : 'Atualizar'"
+                th:text="${profissional.id == null} ? #{profissional.criar} : #{profissional.atualizar}"
               ></span>
             </button>
           </div>

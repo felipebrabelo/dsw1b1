@@ -11,7 +11,7 @@
             type="text"
             name="cargo"
             class="form-control"
-            placeholder="Cargo ou palavra-chave"
+            th:placeholder="#{search.cargo.placeholder}"
             th:value="${cargo}"
           />
 
@@ -19,12 +19,12 @@
             type="text"
             name="local"
             class="form-control js-cidade-input"
-            placeholder="Cidade, estado ou região"
+            th:placeholder="#{search.local.placeholder}"
             th:value="${local}"
             list="cidadesList"
           />
           <datalist id="cidadesList" class="js-cidade-autocomplete"></datalist>
-          <button class="btn btn-primary" type="submit">Buscar</button>
+          <button class="btn btn-primary" type="submit" th:text="#{search.button}">Buscar</button>
         </div>
       </form>
     </search-bar>

@@ -19,30 +19,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "vagas")
 public class Vaga extends AbstractEntity<Long> {
-    @NotBlank(message = "O título é obrigatório.")
+    @NotBlank(message = "{vaga.titulo.notblank}")
     @Column(nullable = false, length = 100)
     private String titulo;
 
-    @NotBlank(message = "A descrição é obrigatória.")
+    @NotBlank(message = "{vaga.descricao.notblank}")
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String descricao; // Descrição da vaga, pode ser longa
+    private String descricao;
 
-    @NotNull(message = "A remuneração é obrigatória.")
-    @PositiveOrZero(message = "A remuneração não pode ser negativa.")
+    @NotNull(message = "{vaga.remuneracao.notnull}")
+    @PositiveOrZero(message = "{vaga.remuneracao.positiveorzero}")
     @Column(nullable = false)
-    private BigDecimal remuneracao; // Remuneração da vaga, pode ser zero (vaga não remunerada)
+    private BigDecimal remuneracao;
 
-    @NotNull(message = "A data limite de inscrição é obrigatória.")
-    @Future(message = "A data limite deve ser no futuro.")
+    @NotNull(message = "{vaga.dataLimiteInscricao.notnull}")
+    @Future(message = "{vaga.dataLimiteInscricao.future}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "data_limite_inscricao", nullable = false)
-    private LocalDate dataLimiteInscricao; // Data limite para inscrição na vaga, deve ser no futuro
+    private LocalDate dataLimiteInscricao;
 
-    // Relacionamento: Muitas vagas pertencem a UMA empresa.
     @NotNull
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
-    private Empresa empresa; // Vinculado a partir do "CNPJ da empresa"
+    private Empresa empresa;
 
     // Construtor padrão
     public Vaga() {

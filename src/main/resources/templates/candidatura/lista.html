@@ -6,19 +6,19 @@
     <div layout:fragment="corpo">
       <div class="container mt-4">
         <div th:replace="~{fragments/alert}"></div>
-        <h3 class="text-center mb-4">Lista de Candidaturas</h3>
+        <h3 class="text-center mb-4" th:text="#{candidatura.lista.titulo}">Lista de Candidaturas</h3>
         <div>
           <div class="text-left">
             <div class="row pb-2 border-bottom fw-bold">
-              <div class="col">ID</div>
-              <div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+              <div class="col" th:text="#{candidatura.lista.id}">ID</div>
+              <div class="col" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{candidatura.lista.idProfissional}">
                 ID Profissional
               </div>
-              <div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+              <div class="col" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{candidatura.lista.idVaga}">
                 ID Vaga
               </div>
-              <div class="col">Vaga</div>
-              <div class="col">Status</div>
+              <div class="col" th:text="#{vaga.titulo}">Vaga</div>
+              <div class="col" th:text="#{candidatura.status}">Status</div>
             </div>
             <div th:each="candidatura : ${candidaturas}">
               <div class="row py-2">
@@ -45,7 +45,7 @@
                   th:text="${candidatura.statusDescription}"
                 ></div>
                 <div class="mb-2">
-                  <strong>
+                  <strong th:text="#{candidatura.entrevista.data}">
                     Data da entrevista:
                   </strong>
                   <span
@@ -57,6 +57,7 @@
                     class="btn btn-primary"
                     th:href="${candidatura.entrevistaLink}"
                     target="_blank"
+                    th:text="#{candidatura.entrevista.link}"
                   >
                     Link para a entrevista
                   </a>

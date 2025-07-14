@@ -51,7 +51,7 @@ public class VaiTramparApplication {
 			Empresa empresa1 = new Empresa();
 			empresa1.setEmail("google@google.com");
 			empresa1.setSenha(encoder.encode("google")); // codificar a senha eventaulmente
-			empresa1.setCnpj("06.990.590/0001-23");
+			empresa1.setCnpj("42.937.026/0001-00");
 			empresa1.setNome("Google Brasil");
 			empresa1.setDescricao("Uma empresa de tecnologia multinacional.");
 			empresa1.setCidade("São Paulo");
@@ -59,7 +59,7 @@ public class VaiTramparApplication {
 			Empresa empresa2 = new Empresa();
 			empresa2.setEmail("ifood@ifood.com");
 			empresa2.setSenha(encoder.encode("ifood"));
-			empresa2.setCnpj("11.461.851/0001-90");
+			empresa2.setCnpj("14.231.798/0001-97");
 			empresa2.setNome("iFood");
 			empresa2.setDescricao("Empresa brasileira de entrega de comida online.");
 			empresa2.setCidade("São Carlos");

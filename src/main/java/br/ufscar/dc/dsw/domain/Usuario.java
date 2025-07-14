@@ -13,23 +13,22 @@ import jakarta.validation.constraints.Size;
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.JOINED) // Estratégia de herança
 public class Usuario extends AbstractEntity<Long> {
-    @NotBlank(message = "O nome é obrigatório.")
-    @Size(max = 100)
+    @NotBlank(message = "{usuario.nome.notblank}")
+    @Size(max = 100, message = "{usuario.nome.size}")
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @NotBlank(message = "O e-mail é obrigatório.")
-    @Email(message = "Formato de e-mail inválido.")
+    @NotBlank(message = "{usuario.email.notblank}")
+    @Email(message = "{usuario.email.email}")
     @Column(unique = true, nullable = false)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "{usuario.senha.notblank}")
     @Column(nullable = false, length = 64)
-    // @JsonIgnore // ignorar completamente este campo ao criar a resposta JSON
-    @JsonProperty(access = Access.WRITE_ONLY) // Permite receber a senha, mas não a envia de volta
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String senha;
 
-    @NotBlank
+    @NotBlank(message = "{usuario.role.notblank}")
     @Column(nullable = false, length = 20)
     private String role;
 

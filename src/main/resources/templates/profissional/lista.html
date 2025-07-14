@@ -9,15 +9,15 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">CPF</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Email</th>
-              <th scope="col">Telefone</th>
-              <th scope="col">Sexo</th>
-              <th scope="col">Data de nascimento</th>
-              <th scope="col">Ativo</th>
-              <th scope="col">Ações</th>
+              <th scope="col" th:text="#{profissional.lista.id}">ID</th>
+              <th scope="col" th:text="#{profissional.cpf}">CPF</th>
+              <th scope="col" th:text="#{profissional.nome}">Nome</th>
+              <th scope="col" th:text="#{login.email}">Email</th>
+              <th scope="col" th:text="#{profissional.telefone}">Telefone</th>
+              <th scope="col" th:text="#{profissional.sexo}">Sexo</th>
+              <th scope="col" th:text="#{profissional.data.nascimento}">Data de nascimento</th>
+              <th scope="col" th:text="#{profissional.status}">Status</th>
+              <th scope="col" th:text="#{profissional.acoes}">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -33,9 +33,16 @@
               ></td>
               <td>
                 <span
-                  th:text="${profissional.enabled ? 'Ativo' : 'Inativo'}"
+                  th:text="#{profissional.ativo}"
                   class="badge"
                   th:classappend="${profissional.enabled ? 'bg-success' : 'bg-secondary'}"
+                  th:if="${profissional.enabled}"
+                ></span>
+                <span
+                  th:text="#{profissional.inativo}"
+                  class="badge"
+                  th:classappend="${profissional.enabled ? 'bg-success' : 'bg-secondary'}"
+                  th:unless="${profissional.enabled}"
                 ></span>
               </td>
 
@@ -43,6 +50,7 @@
                 <a
                   class="btn btn-primary btn-sm"
                   th:href="@{/profissionais/editar/{id}(id=${profissional.id})}"
+                  th:text="#{profissional.editar}"
                   >Editar</a
                 >
                 <form
@@ -53,7 +61,7 @@
                   <input
                     type="submit"
                     class="btn btn-danger btn-sm"
-                    value="Excluir"
+                    th:value="#{profissional.excluir}"
                   />
                 </form>
               </td>

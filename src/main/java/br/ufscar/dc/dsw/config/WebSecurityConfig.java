@@ -44,10 +44,15 @@ public class WebSecurityConfig {
 		http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests((authz) -> authz
-						.requestMatchers( "/vagas/**", "/api/**").permitAll()
 						.requestMatchers("/error", "/login/**", "/js/**").permitAll()
 						.requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
-						.requestMatchers("/usuario/**").permitAll()
+						.requestMatchers("/vagas/salvar", "/vagas/cadastrar", "/vagas/candidaturas/**", "/vagas/excluir/**").hasAnyRole("EMPRESA", "ADMIN")
+						.requestMatchers("/vagas/**").permitAll()
+						.requestMatchers("/candidaturas", "/candidaturas/cadastrar").hasAnyRole("PROFISSIONAL", "ADMIN")
+						.requestMatchers("/candidaturas/**").hasAnyRole("EMPRESA", "ADMIN")
+						.requestMatchers("/empresas/vagas").hasAnyRole("EMPRESA")
+						.requestMatchers("/empresas/**", "/profissionais/**").hasRole("ADMIN")
+						.requestMatchers("/api/**").permitAll()
 						.anyRequest().authenticated())
 				.formLogin((form) -> form
 						.loginPage("/login")

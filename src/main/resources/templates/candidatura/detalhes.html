@@ -11,27 +11,27 @@
         th:object="${candidatura}"
       >
         <div th:replace="~{fragments/alert}"></div>
-        <h2 class="text-center mb-4">Detalhes da Candidatura</h2>
+        <h2 class="text-center mb-4" th:text="#{candidatura.detalhes.titulo}">Detalhes da Candidatura</h2>
         <div class="row mb-3">
           <h3 th:text="*{profissional.nome}"></h3>
         </div>
         <div class="mb-3">
           <div class="mb-1">
-            <strong>E-mail</strong>
+            <strong th:text="#{login.email}">E-mail</strong>
             <span th:text="*{profissional.email}"></span>
           </div>
           <div class="mb-1">
-            <strong>Telefone</strong>
+            <strong th:text="#{profissional.telefone}">Telefone</strong>
             <span th:text="*{profissional.telefone}"></span>
           </div>
           <div class="mb-1">
-            <strong>Data de Nascimento</strong>
+            <strong th:text="#{profissional.data.nascimento}">Data de Nascimento</strong>
             <span
               th:text="*{#temporals.format(profissional.dataNascimento, 'dd/MM/yyyy')}"
             ></span>
           </div>
           <div class="mb-1">
-            <strong>Sexo</strong>
+            <strong th:text="#{profissional.sexo}">Sexo</strong>
             <span th:text="*{profissional.sexo}"></span>
           </div>
           <div class="mt-3" th:if="*{curriculoPath}">
@@ -39,42 +39,43 @@
               th:href="@{/candidaturas/curriculo/{id}(id=${candidatura.id})}"
               target="_blank"
               class="btn btn-primary"
+              th:text="#{candidatura.baixar.curriculo}"
             >
               Baixar Currículo
             </a>
           </div>
         </div>
         <div class="p-4 border">
-          <h3 class="mb-3">Controle da candidatura</h3>
+          <h3 class="mb-3" th:text="#{candidatura.controle.titulo}">Controle da candidatura</h3>
           <div class="h-stack">
-            <strong>Vaga:</strong>
+            <strong th:text="#{vaga.titulo}">Vaga:</strong>
             <span th:text="*{vaga.titulo}"></span>
           </div>
           <div class="h-stack">
-            <strong>Data limite:</strong>
+            <strong th:text="#{vaga.data.limite}">Data limite:</strong>
             <span
               th:text="*{#temporals.format(vaga.dataLimiteInscricao, 'dd/MM/yyyy')}"
             ></span>
           </div>
           <div class="h-stack">
-            <strong>Status:</strong>
+            <strong th:text="#{candidatura.status}">Status:</strong>
             <span th:text="*{status}"></span>
           </div>
           <div class="mt-3">
             <div th:if="${subscriptionFinished == false}">
               <div class="mb-3">
-                <label for="status" class="form-label">Alterar Status</label>
+                <label for="status" class="form-label" th:text="#{candidatura.alterar.status}">Alterar Status</label>
                 <select id="status" class="form-control" th:field="*{status}" th:disabled="${readOnly}">
-                  <option value="ABERTA">Aberta</option>
-                  <option value="ENTREVISTA">Entrevista</option>
-                  <option value="NÃO SELECIONADO">Não Selecionado</option>
+                  <option value="ABERTA" th:text="#{candidatura.status.aberta}">Aberta</option>
+                  <option value="ENTREVISTA" th:text="#{candidatura.status.entrevista}">Entrevista</option>
+                  <option value="NÃO SELECIONADO" th:text="#{candidatura.status.nao.selecionado}">Não Selecionado</option>
                 </select>
                 <div class="invalid-feedback">
                   <span th:errors="*{status}"></span>
                 </div>
               </div>
               <div class="mb-3">
-                <label for="observacao" class="form-label">Observação</label>
+                <label for="observacao" class="form-label" th:text="#{candidatura.observacao}">Observação</label>
                 <textarea
                   id="observacao"
                   class="form-control"
@@ -87,7 +88,7 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="entrevistaData" class="form-label">
+                <label for="entrevistaData" class="form-label" th:text="#{candidatura.entrevista.data}">
                   Data da Entrevista
                 </label>
                 <input
@@ -102,7 +103,7 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="entrevistaLink" class="form-label">
+                <label for="entrevistaLink" class="form-label" th:text="#{candidatura.entrevista.link}">
                   Link da Entrevista
                 </label>
                 <input
@@ -120,13 +121,13 @@
                 <input type="hidden" th:field="*{id}" />
                 <input type="hidden" th:field="*{vaga.id}" />
                 <input type="hidden" th:field="*{profissional.id}" />
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" th:text="#{candidatura.atualizar.status}">
                   Atualizar Status
                 </button>
               </div>
             </div>
             <div th:if="${!subscriptionFinished}">
-              <span class="text-warning">
+              <span class="text-warning" th:text="#{candidatura.periodo.inscricao}">
                 Só é possível alterar o status da candidatura se o periodo de
                 inscrição tiver terminado.
               </span>

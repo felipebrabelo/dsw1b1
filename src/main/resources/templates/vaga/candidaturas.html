@@ -9,12 +9,12 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th scope="col">CPF</th>
-              <th scope="col">E-mail</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ações</th>
+              <th scope="col" th:text="#{candidatura.lista.id}">ID</th>
+              <th scope="col" th:text="#{profissional.nome}">Nome</th>
+              <th scope="col" th:text="#{profissional.cpf}">CPF</th>
+              <th scope="col" th:text="#{login.email}">E-mail</th>
+              <th scope="col" th:text="#{candidatura.status}">Status</th>
+              <th scope="col" th:text="#{profissional.acoes}">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -29,6 +29,7 @@
                 <a
                   class="btn btn-primary btn-sm"
                   th:href="@{/candidaturas/{id}(id=${candidatura.id})}"
+                  th:text="#{candidatura.visualizar}"
                   >Visualizar</a
                 >
               </td>

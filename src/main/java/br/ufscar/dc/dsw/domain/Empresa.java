@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+
 /*
 	Representa a entidade Empresa, conforme o Requisito 2
 	Contém os dados cadastrais de uma empresa no sistema.
@@ -15,16 +17,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "empresas")
 public class Empresa extends Usuario {
-	@NotBlank(message = "O CNPJ é obrigatório.")
-	// @CNPJ(message = "CNPJ inválido.") -> removi pra popular o banco de dados
-	// inicialmente
-	@Column(unique = true, nullable = false, length = 18) // Formato com máscara: XX.XXX.XXX/XXXX-XX
+	@NotBlank(message = "{empresa.cnpj.notblank}")
+	@CNPJ(message = "{empresa.cnpj.invalid}")
+	@Column(unique = true, nullable = false, length = 18)
 	private String cnpj;
 
 	@Column(columnDefinition = "TEXT") // Permite uma descrição mais longa
 	private String descricao;
 
-	@NotBlank(message = "A cidade é obrigatória.")
+	@NotBlank(message = "{empresa.cidade.notblank}")
 	@Column(nullable = false)
 	private String cidade;
 
