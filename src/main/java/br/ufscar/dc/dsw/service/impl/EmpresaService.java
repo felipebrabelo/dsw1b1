@@ -17,6 +17,9 @@ public class EmpresaService implements IEmpresaService {
   @Autowired
   IEmpresaDAO dao;
 
+  @Autowired
+  VagaService vagasService;
+
   public void salvar(Empresa empresa) {
     dao.save(empresa);
   }
@@ -45,7 +48,9 @@ public class EmpresaService implements IEmpresaService {
     return dao.findByCidade(nome);
   }
 
-  
-  
+  @Override
+  public boolean hasVagas(Long id) {
+    return !vagasService.buscaPorEmpresaId(id).isEmpty();
+  }
 }
 

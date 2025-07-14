@@ -110,6 +110,10 @@ public class EmpresaController {
 
   @PostMapping("/excluir/{id}")
   public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+    if (empresaService.hasVagas(id)) {
+      attr.addFlashAttribute("fail", "empresa.delete.error.vagas");
+      return "redirect:/empresas";
+    }
     Empresa empresa = empresaService.buscarPorId(id);
     if (empresa != null) {
       empresaService.excluir(id);

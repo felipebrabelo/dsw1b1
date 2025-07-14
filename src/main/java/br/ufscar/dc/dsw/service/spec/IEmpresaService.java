@@ -11,4 +11,5 @@ public interface IEmpresaService {
   void excluir(Long id);
   List<Empresa> buscarPorNome(String nome);
   List<Empresa> buscarPorCidade(String nome);
+  boolean hasVagas(Long id);
 }

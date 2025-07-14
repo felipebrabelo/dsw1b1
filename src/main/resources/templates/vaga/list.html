@@ -10,6 +10,10 @@
         <div th:replace="~{fragments/search-bar::search-bar}"></div>
       </div>
 
+      <div class="mt-4">
+        <div th:replace="~{fragments/alert}"></div>
+      </div>
+
       <div th:if="${#lists.isEmpty(vagas)}" class="mt-4">
         <p th:text="#{busca.vagas.nenhuma}">Nenhuma vaga encontrada com os critérios informados.</p>
       </div>
