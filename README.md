@@ -1,97 +1,109 @@
-# Vai Trampar
-Atividade AA-1: Sistema para oferta de vagas de estágios/empregos
+# Sistema VaiTrampar - Oferta de Vagas de Estágio e Emprego
 
-## Sistema de Vagas de Estágio e Emprego
-Este documento descreve o projeto de um sistema para oferta e candidatura de vagas de estágio e emprego, desenvolvido como parte da disciplina de Desenvolvimento de Software para a Web 1 da UFSCar.
+Este projeto é um sistema web para oferta de vagas de estágio e emprego, desenvolvido para a disciplina de Desenvolvimento de Software para a Web 1. O objetivo é criar uma plataforma que conecte profissionais em busca de oportunidades com empresas que desejam contratar, implementando funcionalidades de cadastro, listagem e gerenciamento através de uma aplicação web e uma API REST.
 
-## Sobre o Projeto
-O objetivo é criar uma plataforma web que conecte profissionais em busca de oportunidades com empresas que desejam contratar. O sistema permitirá que empresas publiquem vagas e gerenciem candidaturas, e que profissionais busquem vagas e se candidatem a elas. A plataforma contará com três perfis de usuário: Administrador, Empresa e Profissional.
+## Requisitos Implementados
 
-## Funcionalidades Principais
-### Gerais
-- [ ] Internacionalização: O sistema deve suportar pelo menos dois idiomas (ex: Português e Inglês).
-- [ ] Validação de Dados: Todas as informações submetidas através de formulários devem ser validadas em termos de formato, tamanho, etc.
-- [ ] Tratamento de Erros: Erros como cadastros duplicados ou falhas técnicas devem ser tratados, exibindo uma página de erro amigável e registrando o erro no console do servidor.
-### Funcionalidades do Administrador
-- [ ] Gerenciamento de Profissionais (CRUD): O administrador pode criar, ler, atualizar e deletar os cadastros de profissionais.
-- [ ] Gerenciamento de Empresas (CRUD): O administrador pode criar, ler, atualizar e deletar os cadastros de empresas.
-- [ ] Acesso: O acesso do administrador requer um login e senha que devem ser populados no banco de dados na inicialização do sistema.
-### Funcionalidades da Empresa
-- [ ] Cadastro e Login: Empresas podem se cadastrar com e-mail, senha, CNPJ, nome, descrição e cidade.
-- [ ] Cadastro de Vagas: Após o login, a empresa pode cadastrar vagas de estágio/trabalho. O cadastro da vaga inclui CNPJ, descrição do perfil, habilidades, remuneração e data limite para inscrição.
-
-- [ ] Listagem de Vagas Próprias: Após o login, a empresa pode visualizar todas as suas vagas cadastradas.
-- [ ] Análise de Candidatos: Ao final do período de inscrição de uma vaga , a empresa pode analisar os currículos dos candidatos e atualizar o status da candidatura para "NÃO SELECIONADO" ou "ENTREVISTA".
-
-- [ ] Comunicação com Candidatos: O sistema deve notificar os candidatos por e-mail sobre a mudança de status. Para o status "ENTREVISTA", a empresa deve informar o horário e o link da videoconferência na notificação.
-
-### Funcionalidades do Profissional
-- [ ] Cadastro e Login: Profissionais podem se cadastrar com e-mail, senha, CPF, nome, telefone, sexo e data de nascimento.
-- [ ] Listagem de Vagas: Qualquer visitante (mesmo sem login) pode ver a lista de vagas abertas e filtrá-las por cidade.
-- [ ] Candidatura a Vagas: Após o login, o profissional pode se candidatar a uma vaga , enviando suas qualificações (por exemplo, via upload de currículo em PDF). Só é permitida uma candidatura por vaga para cada profissional.
+Abaixo está o status de implementação dos requisitos funcionais, baseados nos documentos de especificação (`Requisitos-B1.pdf` e `Requisitos-B2.pdf`).
 
 
-- [ ] Acompanhamento de Candidaturas: Após o login, o profissional pode ver a lista de todas as suas candidaturas e seus respectivos status: 
-ABERTO: A inscrição ainda está dentro do prazo ou em análise pela empresa.
-NÃO SELECIONADO: O perfil do profissional não foi considerado adequado para a vaga pela empresa.
-ENTREVISTA: O profissional foi pré-selecionado para uma entrevista.
+### Funcionalidades da Aplicação (AA-1)
+- [x] **(R1 & R2) Gerenciamento via API:** O CRUD de Profissionais e Empresas está implementado via os endpoints REST.
+- [~] **(R3) Cadastro de Vagas:** A API (`POST /api/vagas`) para uma empresa logada cadastrar vagas está implementada. O fluxo de login e o formulário web precisam ser conectados.
+- [x] **(R4) Listagem Pública de Vagas:** A listagem de vagas abertas com filtro por cidade está funcional através da página web (`/vagas`) e da API (`GET /api/vagas`).
+- [x] **(R5, R7) Fluxo de Candidatura:** A candidatura de um profissional a uma vaga e o acompanhamento do status ainda não foram implementados.
+- [x] **(R6) Listagem de Vagas por Empresa:** A funcionalidade está implementada via o endpoint `GET /api/vagas/empresas/{id}`.
+- [x] **(R8) Análise de Candidatos:** Upload de currículo implementado e pode ser baixado pela empresa
+- [x] **(R9) Internacionalização:** O sistema ainda não foi internacionalizado.
+- [x] **(R10) Validação e Tratamento de Erros:** A validação de dados (`@Valid`) e o tratamento de erros de servidor (`ErrorViewController`) estão implementados.
+
+
+### Funcionalidades da API REST (AA-2)
+- [x] **API de Empresas:** CRUD completo para empresas e busca por cidade.
+  - `POST /api/empresas`
+  - `GET /api/empresas`
+  - `GET /api/empresas/{id}`
+  - `GET /api/empresas/cidades/{nome}`
+  - `PUT /api/empresas/{id}`
+  - `DELETE /api/empresas/{id}`
+- [x] **API de Profissionais:** CRUD completo para profissionais.
+  - `POST /api/profissionais` (Cadastro Público)
+  - `GET /api/profissionais`
+  - `GET /api/profissionais/{id}`
+  - `PUT /api/profissionais/{id}`
+  - `DELETE /api/profissionais/{id}`
+- [x] **API de Vagas:** Listagem e consulta de vagas.
+  - `GET /api/vagas` (com filtros por cargo e cidade)
+  - `GET /api/vagas/{id}`
+  - `GET /api/vagas/empresas/{id}`
+
+
 
 ## Arquitetura e Tecnologias
-### Arquitetura
-O projeto segue o padrão de arquitetura Modelo-Visão-Controlador (MVC).
 
-#### Tecnologias Utilizadas
-##### Back-end (Lado Servidor):
-- Spring MVC
-- Spring Data JPA
-- Spring Security
-- Thymeleaf
-##### Front-end (Lado Cliente):
-- Javascript
-- CSS
-- Bootstrap
+O projeto segue o padrão de arquitetura **Modelo-Visão-Controlador (MVC)**.
 
-## Ambiente de Desenvolvimento:
-- Build e Deploy: Obrigatoriamente com *Apache Maven*.
-- Controle de Versão: Obrigatoriamente com Git e hospedado em um [repositório *GitHub*](https://github.com/felipebrabelo/dsw1b1).
+- **Backend:** Java, Spring Boot, Spring MVC, Spring Data JPA, Spring Security
+- **Frontend:** Thymeleaf, HTML, CSS, JavaScript, Bootstrap
+- **Banco de Dados:** SQLite (arquivo `vaitrampar_db.db` na raiz do projeto)
+- **Build e Dependências:** Maven
 
-# Como Executar o Projeto
-Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento local.
+### Principais Diretórios
 
-## Pré-requisitos
-- Java Development Kit (JDK) 11 ou superior
+.
+└── src/
+├── main/
+│   ├── java/br/ufscar/dc/dsw/
+│   │   ├── domain/      # Entidades JPA (Empresa, Vaga, etc.)
+│   │   ├── controller/  # Controllers MVC e REST
+│   │   ├── service/     # Camada de Serviços
+│   │   ├── dao/         # Repositórios JPA
+│   │   └── config/      # Configurações (Security)
+│   └── resources/
+│       ├── templates/   # Templates Thymeleaf
+│       ├── static/      # Arquivos estáticos (CSS, JS)
+│       └── application.properties
+└── test/
+
+## Como Executar o Projeto
+
+#### Pré-requisitos
+- Java Development Kit (JDK) 17 ou superior
 - Apache Maven
-- Git
 
-## Passos para Instalação
-Clone o repositório:
-```Bash
-git clone https://github.com/felipebrabelo/dsw1b1
-cd dsw1b1
-```
+#### Passos
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/felipebrabelo/dsw1b1](https://github.com/felipebrabelo/dsw1b1)
+    cd dsw1b1
+    ```
+2.  **Configure o Banco de Dados:**
+    - Este projeto usa um banco de dados **SQLite**.
+    - As configurações de acesso ao banco devem ser feitas no arquivo `application.properties`. Se o arquivo não existir, crie-o em `src/main/resources/` a partir do nosso `application.properties.template`.
 
-## Configuração do Banco de Dados:
-Este projeto não envia o arquivo de configuração do banco de dados (application.properties) para o repositório por razões de segurança.
+3.  **Compile o projeto com o Maven:**
+    Execute o comando a seguir na raiz do projeto para baixar as dependências e compilar o código.
+    ```bash
+    ./mvnw clean install
+    ```
+    *(Use `mvnw.cmd` no Windows)*
 
-Navegue até src/main/resources/.
-1. Crie uma cópia do arquivo application.properties.template e renomeie-a para application.properties.
-2. Edite o application.properties com as suas credenciais de acesso ao banco de dados local.
-3. Compile o projeto com o Maven:
-Execute o comando a seguir na raiz do projeto para baixar as dependências e compilar o código.
-
-```Bash
-mvn clean install
-```
-
-Execute a aplicação:
-Após a compilação bem-sucedida, inicie a aplicação com o seguinte comando:
-
-```Bash
-mvn spring-boot:run
-```
-A aplicação estará disponível em http://localhost:8080.
+4.  **Execute a aplicação:**
+    Após a compilação bem-sucedida, inicie a aplicação com o seguinte comando:
+    ```bash
+    ./mvnw spring-boot:run
+    ```
+    A aplicação estará disponível em `http://localhost:8080`.
 
 ## Equipe
-[João Vitor Azevedo](https://github.com/JoaoVitorAzevedo)
-[Fábricio Rodrigues](https://github.com/devfabri)
+- [João Vitor Azevedo](https://github.com/JoaoVitorAzevedo)
+- [Fábricio Rodrigues](https://github.com/devfabri)
 
+### Divisão de Tarefas
+## João
+-  
+
+## Fabrício
+
+## Licença
+Ver arquivo `LICENSE
