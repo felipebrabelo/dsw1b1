@@ -107,4 +107,16 @@ public class EmpresaController {
     model.addAttribute("vagas", vagas);
     return "vaga/list";
   }
+
+  @PostMapping("/excluir/{id}")
+  public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+    Empresa empresa = empresaService.buscarPorId(id);
+    if (empresa != null) {
+      empresaService.excluir(id);
+      attr.addFlashAttribute("success", "empresa.delete.success");
+    } else {
+      attr.addFlashAttribute("error", "empresa.delete.error");
+    }
+    return "redirect:/empresas";
+  }
 }
