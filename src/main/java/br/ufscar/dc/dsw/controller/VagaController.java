@@ -155,7 +155,7 @@ public class VagaController {
   @GetMapping("excluir/{id}")
   public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
     if (!candidaturaService.buscarPorVagaId(id).isEmpty()) {
-      attr.addFlashAttribute("fail", "vaga.delete.fail");
+      attr.addFlashAttribute("fail", "vaga.delete.error.candidaturas");
       return "redirect:/vagas";
     }
 
