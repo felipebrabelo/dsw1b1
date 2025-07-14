@@ -125,8 +125,10 @@ Execute o comando a seguir na raiz do projeto para baixar as dependências e com
 ## Fabrício
 - Validação de Dados
 - Internacionalização
+- Controllers do site
 - Lógica de Candidatura à uma vaga
 - Upload de Currículo
+- Implementação das paginas com thymeleaf
 
 ## Licença
 Ver arquivo `LICENSE`
