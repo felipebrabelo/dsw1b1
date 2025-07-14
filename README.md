@@ -50,20 +50,24 @@ O projeto segue o padrão de arquitetura **Modelo-Visão-Controlador (MVC)**.
 
 ### Principais Diretórios
 
+
+
 .
 └── src/
-├── main/
-│   ├── java/br/ufscar/dc/dsw/
-│   │   ├── domain/      # Entidades JPA (Empresa, Vaga, etc.)
-│   │   ├── controller/  # Controllers MVC e REST
-│   │   ├── service/     # Camada de Serviços
-│   │   ├── dao/         # Repositórios JPA
-│   │   └── config/      # Configurações (Security)
-│   └── resources/
-│       ├── templates/   # Templates Thymeleaf
-│       ├── static/      # Arquivos estáticos (CSS, JS)
-│       └── application.properties
-└── test/
+
+    ├── main/
+    │   ├── java/br/ufscar/dc/dsw/
+    │   │   ├── domain/      # Entidades JPA (Empresa, Vaga, etc.)
+    │   │   ├── controller/  # Controllers MVC e REST
+    │   │   ├── service/     # Camada de Serviços
+    │   │   ├── dao/         # Repositórios JPA
+    │   │   └── config/      # Configurações (Security)
+    │   └── resources/
+    │       ├── templates/   # Templates Thymeleaf
+    │       ├── static/      # Arquivos estáticos (CSS, JS)
+    │       └── application.properties
+    └── test/
+
 
 ## Como Executar o Projeto
 
@@ -77,21 +81,25 @@ O projeto segue o padrão de arquitetura **Modelo-Visão-Controlador (MVC)**.
     git clone [https://github.com/felipebrabelo/dsw1b1](https://github.com/felipebrabelo/dsw1b1)
     cd dsw1b1
     ```
-2.  **Configure o Banco de Dados:**
-    - Este projeto usa um banco de dados **SQLite**.
-    - As configurações de acesso ao banco devem ser feitas no arquivo `application.properties`. Se o arquivo não existir, crie-o em `src/main/resources/` a partir do nosso `application.properties.template`.
+2. **Configuração do Banco de Dados**:
+Este projeto não envia o arquivo de configuração do banco de dados (application.properties) para o repositório por razões de segurança.
+
+Navegue até src/main/resources/.
+1. Crie uma cópia do arquivo application.properties.template e renomeie-a para application.properties.
+2. Edite o application.properties com as suas credenciais de acesso ao banco de dados local.
+3. Compile o projeto com o Maven:
+Execute o comando a seguir na raiz do projeto para baixar as dependências e compilar o código.
 
 3.  **Compile o projeto com o Maven:**
     Execute o comando a seguir na raiz do projeto para baixar as dependências e compilar o código.
     ```bash
-    ./mvnw clean install
+    ./mvn clean install
     ```
-    *(Use `mvnw.cmd` no Windows)*
 
 4.  **Execute a aplicação:**
     Após a compilação bem-sucedida, inicie a aplicação com o seguinte comando:
     ```bash
-    ./mvnw spring-boot:run
+    ./mvn spring-boot:run
     ```
     A aplicação estará disponível em `http://localhost:8080`.
 
@@ -100,10 +108,25 @@ O projeto segue o padrão de arquitetura **Modelo-Visão-Controlador (MVC)**.
 - [Fábricio Rodrigues](https://github.com/devfabri)
 
 ### Divisão de Tarefas
+
 ## João
--  
+-  API's
+    - Profissionais
+    - Empresas
+    - Vagas
+    - Testes no Postman
+- /domain
+    - Entidades JPA(Vaga, Empresa, Profissional) exceto Candidatura
+- /dao
+    - Primeiros Repositórios JPA
+- /service - Interfaces iniciais do T1, exceto candidatura
+
 
 ## Fabrício
+- Validação de Dados
+- Internacionalização
+- Lógica de Candidatura à uma vaga
+- Upload de Currículo
 
 ## Licença
-Ver arquivo `LICENSE
+Ver arquivo `LICENSE`
