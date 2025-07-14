@@ -1,18 +1,13 @@
 package br.ufscar.dc.dsw.controller.REST;
 
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Vaga;
-import br.ufscar.dc.dsw.security.UsuarioDetails; // Importe sua classe UserDetails
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 import br.ufscar.dc.dsw.service.spec.IVagaService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/vagas")
